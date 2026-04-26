@@ -12,10 +12,10 @@ tfenv/
 .ipynb_checkpoints
 */.ipynb_checkpoints/*
 
-# Models & Data
-*.pkl
-*.h5
-*.csv
+# Models & Data - Included for deployment
+# *.pkl
+# *.h5
+# *.csv
 
 # OS
 .DS_Store

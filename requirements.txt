@@ -4,3 +4,8 @@ scikit-learn
 xgboost
 imblearn
 joblib
+gunicorn
+fpdf
+shap
+numpy
+tensorflow
