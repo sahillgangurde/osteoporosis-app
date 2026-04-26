@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Terms of Service - OsteoScan AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <style>body { font-family: 'Plus Jakarta Sans', sans-serif; }</style>
+</head>
+<body class="bg-slate-50 text-slate-900 overflow-x-hidden">
+    <nav class="bg-white border-b border-slate-200 py-4 px-8 sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto flex justify-between items-center">
+            <a href="dashboard.html" class="text-xl font-bold text-[#4A3AFF]">OsteoScan AI</a>
+            <button onclick="const res = JSON.parse(localStorage.getItem('osteo_result') || '{}'); window.location.href = res.risk_score ? (res.high_risk ? 'high_risk_result.html' : 'results.html') : 'dashboard.html';" class="text-sm font-semibold text-slate-500 hover:text-[#4A3AFF] flex items-center gap-2">
+                <span class="material-symbols-outlined text-sm" style="font-size: 18px;">arrow_back</span> Back to Results
+            </button>
+        </div>
+    </nav>
+    <main class="max-w-4xl mx-auto py-16 px-8 bg-white my-8 rounded-2xl shadow-sm border border-slate-200">
+        <h1 class="text-4xl font-extrabold mb-8">Terms of Service</h1>
+        <p class="text-slate-500 mb-8">Last Updated: April 25, 2026</p>
+        
+        <div class="space-y-8 text-slate-700 leading-relaxed">
+            <section class="bg-red-50 p-6 rounded-xl border border-red-100">
+                <h2 class="text-xl font-bold mb-3 text-red-900">Medical Disclaimer</h2>
+                <p class="text-red-800 font-medium">OsteoScan AI is a risk-assessment aid powered by machine learning. It is NOT a substitute for professional medical diagnosis, treatment, or advice. Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition.</p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold mb-4 text-slate-900">1. Acceptance of Terms</h2>
+                <p>By using OsteoScan AI, you agree to provide truthful clinical information. Accuracy of the AI prediction depends on the precision of your input.</p>
+            </section>
+            
+            <section>
+                <h2 class="text-2xl font-bold mb-4 text-slate-900">2. Use of Service</h2>
+                <p>This service is intended for screening purposes only. Results (Risk Score, Bone Stability Index) should be discussed with a medical professional.</p>
+            </section>
+            
+            <section>
+                <h2 class="text-2xl font-bold mb-4 text-slate-900">3. Limitation of Liability</h2>
+                <p>The developers of OsteoScan AI are not liable for any health decisions made based solely on the app's predictions. Users are encouraged to verify results through clinical DEXA scans.</p>
+            </section>
+        </div>
+    </main>
+    <footer class="py-12 text-center text-slate-400 text-sm">
+        <p>© 2026 OsteoScan AI. All rights reserved.</p>
+    </footer>
+</body>
+</html>

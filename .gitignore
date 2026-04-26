@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+env/
+venv/
+ENV/
+tfenv/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+
+# Models & Data
+*.pkl
+*.h5
+*.csv
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Scratch and temp files
+scratch/
+temp_script.py
+original_cell_1.json

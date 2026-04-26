@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+    <button id="menu-btn" class="md:hidden fixed top-5 left-5 z-50 bg-white p-2 rounded-xl shadow-lg text-primary">
+    <span class="material-symbols-outlined">menu</span>
+</button><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-error-container": "#93000a",
+                    "surface-bright": "#f8f9ff",
+                    "outline-variant": "#c7c4da",
+                    "on-secondary-container": "#00725e",
+                    "secondary-fixed": "#5ffbd6",
+                    "on-tertiary-fixed-variant": "#8c1520",
+                    "surface-variant": "#e1e2e8",
+                    "primary-fixed": "#e2dfff",
+                    "outline": "#777588",
+                    "error-container": "#ffdad6",
+                    "on-primary": "#ffffff",
+                    "tertiary": "#8f1721",
+                    "on-tertiary": "#ffffff",
+                    "inverse-primary": "#c3c0ff",
+                    "background": "#f8f9ff",
+                    "surface-tint": "#4837fd",
+                    "on-secondary-fixed-variant": "#005142",
+                    "surface-dim": "#d8dae0",
+                    "on-primary-fixed-variant": "#2d00e5",
+                    "tertiary-container": "#b03136",
+                    "secondary": "#006b58",
+                    "on-tertiary-container": "#ffd0ce",
+                    "inverse-surface": "#2e3135",
+                    "secondary-fixed-dim": "#38debb",
+                    "surface-container-high": "#e7e8ee",
+                    "on-secondary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "on-primary-fixed": "#0f0069",
+                    "secondary-container": "#5ffbd6",
+                    "primary": "#2e02e9",
+                    "error": "#ba1a1a",
+                    "primary-fixed-dim": "#c3c0ff",
+                    "surface-container-low": "#f2f3f9",
+                    "on-secondary-fixed": "#002019",
+                    "on-surface": "#191c20",
+                    "surface-container-lowest": "#ffffff",
+                    "surface": "#f8f9ff",
+                    "tertiary-fixed": "#ffdad8",
+                    "on-tertiary-fixed": "#410006",
+                    "on-surface-variant": "#464557",
+                    "surface-container-highest": "#e1e2e8",
+                    "on-background": "#191c20",
+                    "on-primary-container": "#dad7ff",
+                    "inverse-on-surface": "#eff0f6",
+                    "tertiary-fixed-dim": "#ffb3b0",
+                    "surface-container": "#eceef3",
+                    "primary-container": "#4a3aff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Plus Jakarta Sans"],
+                    "label": ["Plus Jakarta Sans"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        h1, h2, h3 { font-family: 'Manrope', sans-serif; }
+        body { min-height: 100dvh; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface selection:bg-primary-container selection:text-on-primary-container min-h-screen flex flex-col overflow-x-hidden">
+<nav class="fixed top-0 w-full z-50 bg-[#f8f9ff]/80 backdrop-blur-md shadow-[0px_4px_20px_rgba(74,58,255,0.05)]">
+<div class="flex justify-between items-center px-6 py-4 max-w-7xl mx-auto">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#4A3AFF] text-2xl">clinical_notes</span>
+<span class="text-xl font-bold bg-gradient-to-r from-[#4A3AFF] to-[#6E61FF] bg-clip-text text-transparent">OsteoScan AI</span>
+</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-slate-600 font-medium hover:text-[#4A3AFF]" href="dashboard.html">Dashboard</a>
+<a class="text-[#4A3AFF] border-b-2 border-[#4A3AFF] font-medium" href="javascript:void(0)">Results</a>
+<a class="text-slate-600 font-medium hover:text-[#4A3AFF]" href="tips.html">Resources</a>
+</div>
+<button onclick="window.location.href='ui.html'" class="bg-primary-container text-on-primary px-6 py-2 rounded-lg font-bold shadow-lg">New Assessment</button>
+</div>
+</nav>
+<main class="flex-grow pt-32 pb-24 px-6 max-w-7xl mx-auto w-full">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<section class="lg:col-span-8 flex flex-col gap-8">
+<div class="bg-secondary-container rounded-3xl p-8 md:p-4 md:p-16 shadow-sm relative overflow-hidden h-full flex flex-col justify-center">
+<div class="absolute -right-16 -top-16 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
+<div class="relative z-10 flex flex-col md:flex-row items-start md:items-center gap-8">
+<div class="bg-white rounded-full p-4 flex items-center justify-center shadow-sm shrink-0">
+<span class="material-symbols-outlined text-on-secondary-container text-2xl md:text-6xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div>
+<h1 class="text-on-secondary-container text-3xl md:text-2xl md:text-6xl font-extrabold tracking-tight mb-2">You Are at Lower Risk</h1>
+<p class="text-on-secondary-container/80 text-lg font-medium max-w-xl">Based on your clinical markers, your bone density and metabolic profile are within the optimal threshold.</p>
+</div>
+</div>
+<div class="mt-12">
+<div class="flex justify-between items-end mb-2">
+<span class="text-on-secondary-container font-bold">Bone Stability Index</span>
+<span id="risk-percentage" class="risk-score-display text-xl md:text-5xl font-headline font-black text-error">84%</span>
+</div>
+<div class="bg-white/30 rounded-full h-6 w-full p-1 relative">
+<div id="risk-bar" class="bg-on-secondary-container h-full rounded-full transition-all duration-1000 shadow-sm" style="width: 12%;"></div>
+</div>
+            <p id="risk-explanation" class="mt-6 text-on-secondary-container/70 text-sm font-medium italic leading-relaxed"></p>
+            
+            <!-- SHAP Factors Section -->
+            <div id="factors-container" class="mt-8 pt-8 border-t border-white/20 hidden">
+                <h3 class="text-on-secondary-container font-bold text-sm uppercase tracking-wider mb-4 opacity-80">Top Risk Drivers (AI Insights)</h3>
+                <div id="factors-list" class="flex flex-wrap gap-3">
+                    <!-- Factors will be injected here -->
+                </div>
+            </div>
+        </div>
+    </section>
+<aside
+<button id="close-sidebar" class="md:hidden absolute top-4 right-4 text-slate-500">
+    <span class="material-symbols-outlined">close</span>
+</button>
+ class="lg:col-span-4 flex flex-col gap-6">
+<div class="bg-surface-container-low p-8 rounded-3xl border border-outline-variant/15">
+<h2 class="text-xl font-bold mb-6 flex items-center gap-2"><span class="material-symbols-outlined text-primary">spa</span>Maintenance Plan</h2>
+<ul class="space-y-6">
+<li class="flex gap-4 items-start"><div class="w-6 h-6 rounded-full bg-secondary-container flex items-center justify-center shrink-0 mt-0.5"><span class="material-symbols-outlined text-[14px] text-on-secondary-container" style="font-variation-settings: 'wght' 700;">check</span></div><div><span class="font-bold text-sm block">Daily Vitamin D3</span><p class="text-xs text-on-surface-variant leading-relaxed">Maintain 1,000-2,000 IU daily.</p></div></li>
+<li class="flex gap-4 items-start"><div class="w-6 h-6 rounded-full bg-secondary-container flex items-center justify-center shrink-0 mt-0.5"><span class="material-symbols-outlined text-[14px] text-on-secondary-container" style="font-variation-settings: 'wght' 700;">check</span></div><div><span class="font-bold text-sm block">Resistance Training</span><p class="text-xs text-on-surface-variant leading-relaxed">Engage in weight-bearing exercises twice a week.</p></div></li>
+<li class="flex gap-4 items-start"><div class="w-6 h-6 rounded-full bg-secondary-container flex items-center justify-center shrink-0 mt-0.5"><span class="material-symbols-outlined text-[14px] text-on-secondary-container" style="font-variation-settings: 'wght' 700;">check</span></div><div><span class="font-bold text-sm block">Calcium-Rich Diet</span><p class="text-xs text-on-surface-variant leading-relaxed">Focus on leafy greens and fortified sources.</p></div></li>
+</ul>
+<div class="mt-8 flex flex-col gap-3">
+<button onclick="window.location.href='ui.html'" class="w-full bg-surface-container-high text-on-surface font-bold py-3 px-6 rounded-xl flex items-center justify-center gap-2 shadow-sm"><span class="material-symbols-outlined text-xl">refresh</span>Check Again</button>
+<button id="download-report-btn" class="w-full border border-outline-variant/30 text-primary font-bold py-3 px-6 rounded-xl flex items-center justify-center gap-2"><span class="material-symbols-outlined text-xl">download</span>Download PDF Report</button>
+<button onclick="window.location.href='report.html'" class="w-full border border-outline-variant/30 text-slate-600 font-bold py-3 px-6 rounded-xl flex items-center justify-center gap-2 hover:bg-slate-50 transition-colors"><span class="material-symbols-outlined text-xl">print</span>Printable Version</button>
+</div>
+</div>
+
+</aside>
+</div>
+</main>
+
+<footer class="bg-[#f2f3f9] py-12 mt-auto">
+<div class="flex flex-col md:flex-row justify-between items-center px-8 gap-6 max-w-7xl mx-auto text-slate-500 text-sm">
+<p>© 2026 OsteoScan AI. Precision Clinical Editorial.</p>
+<div class="flex gap-8">
+    <a href="privacy.html" class="hover:text-[#4A3AFF] transition-colors">Privacy Policy</a>
+    <a href="terms.html" class="hover:text-[#4A3AFF] transition-colors">Terms of Service</a>
+</div>
+</div>
+</footer>
+
+<script src="app.js"></script>
+</body></html>

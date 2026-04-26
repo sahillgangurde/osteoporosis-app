@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+    <button id="menu-btn" class="md:hidden fixed top-5 left-5 z-50 bg-white p-2 rounded-xl shadow-lg text-primary">
+    <span class="material-symbols-outlined">menu</span>
+</button>
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>OsteoScan - Clinical Guidance & Tips</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#4A3AFF",
+                        "secondary": "#006b58",
+                        "tertiary": "#8f1721",
+                        "surface": "#f8f9ff",
+                        "on-surface": "#191c20"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Plus Jakarta Sans"]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(74, 58, 255, 0.1);
+        }
+    </style>
+</head>
+
+<body class="bg-surface text-on-surface font-body overflow-x-hidden">
+    <aside id="sidebar" id="sidebar" class="h-screen w-72 fixed left-0 top-0 -translate-x-full md:translate-x-0 transition-transform duration-300 z-50 bg-[#f2f3f9] dark:bg-slate-900 flex flex-col py-8 z-50 -translate-x-full md:translate-x-0 transition-transform duration-300 shadow-xl md:shadow-none">
+    <div class="px-8 mb-12 flex justify-between items-center">
+        <div>
+            <h1 class="font-['Manrope'] font-extrabold text-2xl tracking-tight text-[#4A3AFF]">OsteoScan</h1>
+            <p class="text-xs text-slate-500 font-medium tracking-widest mt-1">CLINICAL LUXE SUITE</p>
+        </div>
+        <button id="close-sidebar" class="md:hidden text-slate-500 hover:text-primary">
+            <span class="material-symbols-outlined">close</span>
+        </button>
+    </div>
+    <nav class="flex-grow">
+        <ul class="space-y-1">
+            <li><a class="flex items-center text-slate-500 pl-8 py-3 font-medium text-sm transition-all hover:bg-white/30" href="dashboard.html"><span class="material-symbols-outlined mr-4">grid_view</span>Dashboard</a></li>
+            <li><a class="flex items-center text-[#4A3AFF] font-bold bg-white/50 rounded-l-full ml-4 pl-4 py-3 font-medium text-sm scale-98-active transition-transform" href="ui.html"><span class="material-symbols-outlined mr-4">query_stats</span>Risk Assessments</a></li>
+        </ul>
+    </nav>
+</aside>
+
+    <main class="ml-0 md:ml-72 p-4 md:p-16 min-h-screen">
+        <header class="mb-12 flex justify-between items-center">
+            <div>
+                <h2 class="font-headline font-extrabold text-xl md:text-5xl text-on-surface tracking-tight mb-2">Personalized
+                    Guidance</h2>
+                <p id="result-status" class="text-on-surface-variant font-medium">Loading your assessment context...</p>
+            </div>
+            <div id="risk-badge" class="hidden px-4 py-2 rounded-full font-bold text-sm tracking-wide uppercase"></div>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-1 sm:grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-1 md:grid-cols-3 gap-8" id="tips-container">
+            <!-- Tips will be injected here -->
+        </div>
+
+
+    </main>
+<footer class="bg-[#f2f3f9] py-12 mt-auto">
+<div class="flex flex-col md:flex-row justify-between items-center px-8 gap-6 max-w-7xl mx-auto text-slate-500 text-sm">
+<p>© 2026 OsteoScan AI. Precision Clinical Editorial.</p>
+<div class="flex gap-8">
+    <a href="privacy.html" class="hover:text-[#4A3AFF] transition-colors">Privacy Policy</a>
+    <a href="terms.html" class="hover:text-[#4A3AFF] transition-colors">Terms of Service</a>
+</div>
+</div>
+</footer>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const res = JSON.parse(sessionStorage.getItem("osteo_result"));
+            const container = document.getElementById('tips-container');
+            const statusText = document.getElementById('result-status');
+            const riskBadge = document.getElementById('risk-badge');
+
+            const highRiskTips = [
+                { icon: 'medical_services', title: 'Consult Specialist', desc: 'Schedule a DEXA scan immediately to confirm bone mineral density levels.' },
+                { icon: 'nutrition', title: 'Intensive Nutrition', desc: 'Increase Calcium intake to 1,200mg and Vitamin D to 2,000 IU daily.' },
+                { icon: 'home_health', title: 'Fall Prevention', desc: 'Ensure your home is clear of trip hazards; consider installing bathroom grab bars.' },
+                { icon: 'fitness_center', title: 'Gentle Resistance', desc: 'Engage in low-impact weight-bearing exercises like swimming or walking.' },
+                { icon: 'pill', title: 'Medication Review', desc: 'Discuss bisphosphonates or other bone-building therapies with your doctor.' }
+            ];
+
+            const lowRiskTips = [
+                { icon: 'spa', title: 'Maintenance Plan', desc: 'Continue your current healthy lifestyle to preserve existing bone mass.' },
+                { icon: 'fitness_center', title: 'Weight Training', desc: 'Progressive resistance training 3x a week helps stimulate bone growth.' },
+                { icon: 'restaurant', title: 'Balanced Diet', desc: 'Maintain a protein-rich diet with leafy greens for natural mineral support.' },
+                { icon: 'wb_sunny', title: 'Natural Vitamin D', desc: 'Aim for 15 minutes of direct sunlight daily to aid calcium absorption.' },
+                { icon: 'event_repeat', title: 'Annual Checkup', desc: 'Re-assess your risk every 12 months as part of your wellness routine.' }
+            ];
+
+            if (res) {
+                const isHigh = res.high_risk;
+                statusText.innerText = isHigh ? "Based on your high-risk profile, we recommend prioritized medical action." : "Based on your optimal profile, here is your maintenance roadmap.";
+
+                riskBadge.classList.remove('hidden');
+                riskBadge.innerText = isHigh ? "High Risk Detected" : "Optimal Health Status";
+                riskBadge.classList.add(isHigh ? 'bg-tertiary/10' : 'bg-secondary/10');
+                riskBadge.classList.add(isHigh ? 'text-tertiary' : 'text-secondary');
+
+                const tips = isHigh ? highRiskTips : lowRiskTips;
+                container.innerHTML = tips.map(tip => `
+                <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="w-12 h-12 rounded-2xl ${isHigh ? 'bg-tertiary/10 text-tertiary' : 'bg-secondary/10 text-secondary'} flex items-center justify-center mb-6">
+                        <span class="material-symbols-outlined">${tip.icon}</span>
+                    </div>
+                    <h4 class="text-xl font-bold mb-3">${tip.title}</h4>
+                    <p class="text-sm text-on-surface-variant leading-relaxed">${tip.desc}</p>
+                </div>
+            `).join('');
+            } else {
+                // No prior assessment — show general bone health guidance tips by default
+                statusText.innerText = "General bone health guidance. Complete an assessment for personalized tips.";
+
+                riskBadge.classList.remove('hidden');
+                riskBadge.innerText = "General Guidelines";
+                riskBadge.classList.add('bg-primary/10', 'text-primary');
+
+                const defaultTips = [
+                    { icon: 'nutrition', title: 'Calcium Intake', desc: 'Aim for 1,000–1,200 mg of calcium daily through dairy, leafy greens, and fortified foods.' },
+                    { icon: 'wb_sunny', title: 'Vitamin D', desc: 'Get 15–20 minutes of sunlight daily or supplement with 1,000–2,000 IU of Vitamin D3.' },
+                    { icon: 'fitness_center', title: 'Weight-Bearing Exercise', desc: 'Engage in weight-bearing activities like walking, jogging, or resistance training 3–4 times a week.' },
+                    { icon: 'no_drinks', title: 'Limit Alcohol & Smoking', desc: 'Avoid smoking and limit alcohol to reduce bone density loss and fracture risk.' },
+                    { icon: 'event_repeat', title: 'Regular Screenings', desc: 'Adults over 50 should schedule periodic bone density (DEXA) scans as preventive care.' },
+                    { icon: 'restaurant', title: 'Protein-Rich Diet', desc: 'Ensure adequate protein intake to support bone matrix integrity and muscle strength.' }
+                ];
+
+                container.innerHTML = defaultTips.map(tip => `
+                <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mb-6">
+                        <span class="material-symbols-outlined">${tip.icon}</span>
+                    </div>
+                    <h4 class="text-xl font-bold mb-3">${tip.title}</h4>
+                    <p class="text-sm text-on-surface-variant leading-relaxed">${tip.desc}</p>
+                </div>
+            `).join('');
+            }
+        });
+    </script>
+</body>
+
+</html>

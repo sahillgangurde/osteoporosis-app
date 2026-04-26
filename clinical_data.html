@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Clinical Data | OsteoScan AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          "primary": "#2e02e9", "primary-container": "#4a3aff", "on-primary": "#ffffff",
+          "secondary": "#006b58", "secondary-container": "#5ffbd6", "on-secondary-container": "#00725e",
+          "surface": "#f8f9ff", "on-surface": "#191c20", "surface-container-low": "#f2f3f9",
+          "surface-container-lowest": "#ffffff", "surface-container": "#eceef3",
+          "surface-container-high": "#e7e8ee", "outline-variant": "#c7c4da", "outline": "#777588",
+          "on-surface-variant": "#464557", "error": "#ba1a1a",
+        },
+        fontFamily: { "headline": ["Manrope"], "body": ["Plus Jakarta Sans"] }
+      }
+    }
+  }
+</script>
+<style>
+  body { font-family: 'Plus Jakarta Sans', sans-serif; }
+  h1, h2, h3, h4 { font-family: 'Manrope', sans-serif; }
+  .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+  .stat-card { transition: all 0.3s ease; }
+  .stat-card:hover { transform: translateY(-4px); }
+</style>
+</head>
+<body class="bg-surface text-on-surface overflow-x-hidden">
+
+<button id="menu-btn" class="md:hidden fixed top-5 left-5 z-50 bg-white p-2 rounded-xl shadow-lg text-primary">
+    <span class="material-symbols-outlined">menu</span>
+</button>
+
+<!-- Nav -->
+<header class="fixed top-0 w-full z-50 bg-[#f8f9ff]/80 backdrop-blur-md shadow-[0px_4px_20px_rgba(74,58,255,0.05)]">
+  <div class="flex justify-between items-center px-6 py-4 max-w-7xl mx-auto">
+    <a href="dashboard.html" class="flex items-center gap-2">
+      <span class="material-symbols-outlined text-[#4A3AFF]">clinical_notes</span>
+      <span class="text-xl font-bold bg-gradient-to-r from-[#4A3AFF] to-[#6E61FF] bg-clip-text text-transparent font-headline">OsteoScan AI</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-8">
+      <a class="text-slate-600 font-medium hover:text-[#4A3AFF] transition-colors" href="dashboard.html">Home</a>
+      <a class="text-slate-600 font-medium hover:text-[#4A3AFF] transition-colors" href="about.html">How it Works</a>
+      <a class="text-[#4A3AFF] border-b-2 border-[#4A3AFF] font-medium py-1" href="clinical_data.html">Clinical Data</a>
+    </nav>
+    <button onclick="window.location.href='ui.html'" class="bg-[#4a3aff] text-white px-6 py-2.5 rounded-full font-bold text-sm shadow-lg hover:bg-[#3929ee] transition-all active:scale-95">
+      Get Started
+    </button>
+  </div>
+</header>
+
+<main class="pt-28 pb-24">
+
+  <!-- Hero -->
+  <section class="text-center px-6 py-16 max-w-4xl mx-auto">
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#006b58]/10 text-[#006b58] text-xs font-bold tracking-widest mb-6">
+      <span class="material-symbols-outlined text-sm" style="font-variation-settings:'FILL' 1;">bar_chart</span>
+      RESEARCH & DATASET INSIGHTS
+    </div>
+    <h1 class="text-2xl md:text-6xl lg:text-6xl font-extrabold tracking-tight mb-6 leading-[1.1]">
+      Clinical Data &<br><span class="text-[#4a3aff]">Model Evidence</span>
+    </h1>
+    <p class="text-xl text-on-surface-variant leading-relaxed max-w-2xl mx-auto">
+      Our AI models are trained and validated on real clinical datasets. Explore the data behind our predictions, feature importances, and model performance benchmarks.
+    </p>
+  </section>
+
+  <!-- Key Statistics -->
+  <section class="max-w-6xl mx-auto px-6 py-4 md:py-6">
+    <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 md:grid-cols-4 gap-6">
+      <div class="stat-card bg-white rounded-3xl p-8 text-center shadow-sm border border-outline-variant/15">
+        <div class="text-xl md:text-5xl font-extrabold text-[#4a3aff] mb-2">10,000+</div>
+        <div class="text-sm font-semibold text-on-surface-variant">Patient Records in Dataset</div>
+      </div>
+      <div class="stat-card bg-white rounded-3xl p-8 text-center shadow-sm border border-outline-variant/15">
+        <div class="text-xl md:text-5xl font-extrabold text-[#006b58] mb-2">14</div>
+        <div class="text-sm font-semibold text-on-surface-variant">Clinical Features Analyzed</div>
+      </div>
+      <div class="stat-card bg-white rounded-3xl p-8 text-center shadow-sm border border-outline-variant/15">
+        <div class="text-xl md:text-5xl font-extrabold text-[#8f1721] mb-2">95.8%</div>
+        <div class="text-sm font-semibold text-on-surface-variant">Peak Model Accuracy</div>
+      </div>
+      <div class="stat-card bg-white rounded-3xl p-8 text-center shadow-sm border border-outline-variant/15">
+        <div class="text-xl md:text-5xl font-extrabold text-[#4a3aff] mb-2">3</div>
+        <div class="text-sm font-semibold text-on-surface-variant">ML Models Compared</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Charts Row -->
+  <section class="max-w-6xl mx-auto px-6 py-16 grid md:grid-cols-1 sm:grid-cols-1 md:grid-cols-2 gap-6 md:p-4 md:p-14">
+
+    <!-- Model Performance Chart -->
+    <div class="bg-white rounded-3xl p-8 shadow-sm border border-outline-variant/15">
+      <h3 class="text-xl font-bold mb-2">Model Performance Comparison</h3>
+      <p class="text-sm text-on-surface-variant mb-6">Accuracy, F1-Score and Recall across all 3 trained models (5-Fold CV).</p>
+      <canvas id="modelChart" height="240"></canvas>
+    </div>
+
+    <!-- Feature Importance Chart -->
+    <div class="bg-white rounded-3xl p-8 shadow-sm border border-outline-variant/15">
+      <h3 class="text-xl font-bold mb-2">Top Risk Factors (Feature Importance)</h3>
+      <p class="text-sm text-on-surface-variant mb-6">Relative importance of clinical features as determined by the XGBoost model.</p>
+      <canvas id="featureChart" height="240"></canvas>
+    </div>
+
+    <!-- Risk Distribution -->
+    <div class="bg-white rounded-3xl p-8 shadow-sm border border-outline-variant/15">
+      <h3 class="text-xl font-bold mb-2">Dataset Risk Distribution</h3>
+      <p class="text-sm text-on-surface-variant mb-6">Breakdown of Osteoporosis-Positive vs. Negative cases after SMOTE balancing.</p>
+      <canvas id="distributionChart" height="240"></canvas>
+    </div>
+
+    <!-- Age Group Distribution -->
+    <div class="bg-white rounded-3xl p-8 shadow-sm border border-outline-variant/15">
+      <h3 class="text-xl font-bold mb-2">Risk by Age Group</h3>
+      <p class="text-sm text-on-surface-variant mb-6">Percentage of high-risk patients across clinical age brackets.</p>
+      <canvas id="ageChart" height="240"></canvas>
+    </div>
+
+  </section>
+
+  <!-- Detailed Metrics Table -->
+  <section class="max-w-4xl mx-auto px-6 py-4 md:py-6">
+    <h2 class="text-3xl font-extrabold mb-8 text-center">Detailed Model Metrics</h2>
+    <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-outline-variant/15">
+      <table class="w-full text-sm">
+        <thead class="bg-[#4a3aff] text-white">
+          <tr>
+            <th class="px-6 py-4 text-left font-bold">Model</th>
+            <th class="px-6 py-4 text-center font-bold">Accuracy</th>
+            <th class="px-6 py-4 text-center font-bold">Precision</th>
+            <th class="px-6 py-4 text-center font-bold">Recall</th>
+            <th class="px-6 py-4 text-center font-bold">F1-Score</th>
+            <th class="px-6 py-4 text-center font-bold">ROC-AUC</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100">
+          <tr class="hover:bg-slate-50 transition-colors">
+            <td class="px-6 py-4 font-bold text-[#4a3aff] flex items-center gap-2"><span class="material-symbols-outlined text-sm" style="font-variation-settings:'FILL' 1;">star</span>XGBoost</td>
+            <td class="px-6 py-4 text-center font-semibold">94.2%</td>
+            <td class="px-6 py-4 text-center">93.8%</td>
+            <td class="px-6 py-4 text-center">94.1%</td>
+            <td class="px-6 py-4 text-center">93.9%</td>
+            <td class="px-6 py-4 text-center font-bold text-[#006b58]">0.978</td>
+          </tr>
+          <tr class="hover:bg-slate-50 bg-[#4a3aff]/5 transition-colors">
+            <td class="px-6 py-4 font-bold text-[#006b58]">Neural Network (MLP)</td>
+            <td class="px-6 py-4 text-center font-semibold">95.8%</td>
+            <td class="px-6 py-4 text-center">95.3%</td>
+            <td class="px-6 py-4 text-center">95.9%</td>
+            <td class="px-6 py-4 text-center">95.6%</td>
+            <td class="px-6 py-4 text-center font-bold text-[#006b58]">0.991</td>
+          </tr>
+          <tr class="hover:bg-slate-50 transition-colors">
+            <td class="px-6 py-4 font-bold text-[#8f1721]">SVM (RBF Kernel)</td>
+            <td class="px-6 py-4 text-center font-semibold">91.7%</td>
+            <td class="px-6 py-4 text-center">91.2%</td>
+            <td class="px-6 py-4 text-center">91.5%</td>
+            <td class="px-6 py-4 text-center">91.3%</td>
+            <td class="px-6 py-4 text-center font-bold">0.952</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="text-xs text-center text-on-surface-variant mt-4">* Metrics based on 5-Fold Stratified Cross-Validation on held-out test set.</p>
+  </section>
+
+  <!-- Dataset Features -->
+  <section class="max-w-6xl mx-auto px-6 py-16">
+    <h2 class="text-3xl font-extrabold text-center mb-12">Clinical Features Used</h2>
+    <div class="grid md:grid-cols-1 sm:grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bg-white p-6 rounded-2xl shadow-sm border border-outline-variant/15">
+        <div class="text-xs font-bold text-[#4a3aff] uppercase tracking-widest mb-4 flex items-center gap-2"><span class="material-symbols-outlined text-sm">person</span>Demographics</div>
+        <ul class="space-y-2 text-sm">
+          <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-[#4a3aff] inline-block"></span>Age (with binning)</li>
+          <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-[#4a3aff] inline-block"></span>Gender</li>
+          <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-[#4a3aff] inline-block"></span>Race / Ethnicity</li>
+          <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-[#4a3aff] inline-block"></span>Body Weight</li>
+        </ul>
+      </div>
+      <div class="bg-white p-6 rounded-2xl shadow-sm border border-outline-variant/15">
+        <div class="text-xs font-bold text-[#8f1721] uppercase tracking-widest mb-4 flex items-center gap-2"><span class="material-symbols-outlined text-sm">medical_services</span>Clinical History</div>
+        <ul class="space-y-2 text-sm">
+          <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-[#8f1721] inline-block"></span>Hormonal Changes</li>
+          <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-[#8f1721] inline-block"></span>Family History</li>
+          <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-[#8f1721] inline-block"></span>Prior Fractures</li>
+          <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-[#8f1721] inline-block"></span>Medical Conditions</li>
+          <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-[#8f1721] inline-block"></span>Medications</li>
+        </ul>
+      </div>
+      <div class="bg-white p-6 rounded-2xl shadow-sm border border-outline-variant/15">
+        <div class="text-xs font-bold text-[#006b58] uppercase tracking-widest mb-4 flex items-center gap-2"><span class="material-symbols-outlined text-sm">fitness_center</span>Lifestyle</div>
+        <ul class="space-y-2 text-sm">
+          <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-[#006b58] inline-block"></span>Calcium Intake</li>
+          <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-[#006b58] inline-block"></span>Vitamin D Intake</li>
+          <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-[#006b58] inline-block"></span>Physical Activity</li>
+          <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-[#006b58] inline-block"></span>Smoking</li>
+          <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-[#006b58] inline-block"></span>Alcohol Consumption</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="text-center px-6 py-12 max-w-2xl mx-auto">
+    <h2 class="text-xl md:text-5xl font-extrabold mb-4">Try It Yourself</h2>
+    <p class="text-on-surface-variant mb-8 text-lg">Experience our AI prediction engine firsthand.</p>
+    <button onclick="window.location.href='ui.html'" class="bg-[#4a3aff] text-white px-10 py-4 rounded-xl font-bold text-lg shadow-lg hover:-translate-y-1 transition-all flex items-center gap-3 mx-auto">
+      Start Free Assessment <span class="material-symbols-outlined">arrow_forward</span>
+    </button>
+  </section>
+
+</main>
+
+
+<footer class="bg-[#f2f3f9] py-12 mt-auto">
+<div class="flex flex-col md:flex-row justify-between items-center px-8 gap-6 max-w-7xl mx-auto text-slate-500 text-sm">
+<p>© 2026 OsteoScan AI. Precision Clinical Editorial.</p>
+<div class="flex gap-8">
+    <a href="privacy.html" class="hover:text-[#4A3AFF] transition-colors">Privacy Policy</a>
+    <a href="terms.html" class="hover:text-[#4A3AFF] transition-colors">Terms of Service</a>
+</div>
+</div>
+</footer>
+
+
+<script src="app.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // Model Performance Chart
+  new Chart(document.getElementById('modelChart'), {
+    type: 'bar',
+    data: {
+      labels: ['XGBoost', 'Neural Network', 'SVM'],
+      datasets: [
+        { label: 'Accuracy (%)', data: [94.2, 95.8, 91.7], backgroundColor: '#4a3aff', borderRadius: 8 },
+        { label: 'F1-Score (%)', data: [93.9, 95.6, 91.3], backgroundColor: '#006b58', borderRadius: 8 },
+        { label: 'Recall (%)', data: [94.1, 95.9, 91.5], backgroundColor: '#8f1721', borderRadius: 8 },
+      ]
+    },
+    options: {
+      plugins: { legend: { position: 'bottom' } },
+      scales: { y: { min: 85, max: 100, grid: { color: '#f0f0f0' } }, x: { grid: { display: false } } },
+      responsive: true, maintainAspectRatio: true
+    }
+  });
+
+  // Feature Importance Chart
+  new Chart(document.getElementById('featureChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Age', 'Prior Fractures', 'Hormonal Changes', 'Body Weight', 'Calcium Intake', 'Vitamin D', 'Family History', 'Medications'],
+      datasets: [{
+        label: 'Importance Score',
+        data: [0.31, 0.21, 0.14, 0.10, 0.08, 0.07, 0.05, 0.04],
+        backgroundColor: ['#4a3aff','#6258ff','#7a74ff','#9290ff','#aaabff','#c2c2ff','#d8d8ff','#ebebff'],
+        borderRadius: 6
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      plugins: { legend: { display: false } },
+      scales: { x: { grid: { color: '#f0f0f0' } }, y: { grid: { display: false } } },
+      responsive: true, maintainAspectRatio: true
+    }
+  });
+
+  // Distribution Chart
+  new Chart(document.getElementById('distributionChart'), {
+    type: 'doughnut',
+    data: {
+      labels: ['Osteoporosis Positive', 'Osteoporosis Negative'],
+      datasets: [{
+        data: [48.5, 51.5],
+        backgroundColor: ['#4a3aff', '#5ffbd6'],
+        borderWidth: 0,
+        hoverOffset: 8
+      }]
+    },
+    options: {
+      cutout: '70%',
+      plugins: {
+        legend: { position: 'bottom' },
+        tooltip: { callbacks: { label: (c) => ` ${c.label}: ${c.raw}%` } }
+      },
+      responsive: true, maintainAspectRatio: true
+    }
+  });
+
+  // Age Group Risk Chart
+  new Chart(document.getElementById('ageChart'), {
+    type: 'line',
+    data: {
+      labels: ['Young Adult\n(18-30)', 'Adult\n(30-45)', 'Middle-Aged\n(45-60)', 'Senior\n(60-75)', 'Elderly\n(75+)'],
+      datasets: [{
+        label: 'High-Risk Prevalence (%)',
+        data: [4.2, 9.8, 28.4, 52.7, 74.3],
+        borderColor: '#4a3aff',
+        backgroundColor: 'rgba(74,58,255,0.08)',
+        borderWidth: 3,
+        fill: true,
+        tension: 0.4,
+        pointBackgroundColor: '#4a3aff',
+        pointRadius: 6,
+        pointHoverRadius: 8
+      }]
+    },
+    options: {
+      plugins: { legend: { display: false } },
+      scales: {
+        y: { min: 0, max: 100, grid: { color: '#f0f0f0' }, ticks: { callback: v => v + '%' } },
+        x: { grid: { display: false } }
+      },
+      responsive: true, maintainAspectRatio: true
+    }
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>OsteoScan AI | Patient Info</title>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed-dim": "#38debb",
+                    "on-surface-variant": "#464557",
+                    "surface-container-low": "#f2f3f9",
+                    "tertiary": "#8f1721",
+                    "primary-container": "#4a3aff",
+                    "primary": "#2e02e9",
+                    "background": "#f8f9ff",
+                    "on-surface": "#191c20",
+                    "outline": "#777588",
+                    "surface-container-lowest": "#ffffff"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Plus Jakarta Sans"]
+            }
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-background font-body text-on-surface antialiased overflow-x-hidden">
+
+    <!-- Mobile Menu Button -->
+    <button id="menu-btn" class="md:hidden fixed top-5 left-5 z-50 bg-white p-3 rounded-xl shadow-lg text-primary border border-slate-100 flex items-center justify-center">
+        <span class="material-symbols-outlined">menu</span>
+    </button>
+
+    <!-- Sidebar Navigation -->
+    <aside id="sidebar" class="h-screen w-72 fixed left-0 top-0 bg-[#f2f3f9] dark:bg-slate-900 flex flex-col py-8 z-50 -translate-x-full md:translate-x-0 transition-transform duration-300 shadow-xl md:shadow-none">
+        <div class="px-8 mb-12 flex justify-between items-center">
+            <div>
+                <h1 class="font-['Manrope'] font-extrabold text-2xl tracking-tight text-[#4A3AFF]">OsteoScan</h1>
+                <p class="text-xs text-slate-500 font-medium tracking-widest mt-1">CLINICAL LUXE SUITE</p>
+            </div>
+            <button id="close-sidebar" class="md:hidden text-slate-500 hover:text-primary">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        <nav class="flex-grow">
+            <ul class="space-y-1">
+                <li><a class="flex items-center text-slate-500 pl-8 py-3 font-medium text-sm transition-all hover:bg-white/30" href="dashboard.html"><span class="material-symbols-outlined mr-4">grid_view</span>Dashboard</a></li>
+                <li><a class="flex items-center text-[#4A3AFF] font-bold bg-white/50 rounded-l-full ml-4 pl-4 py-3 font-medium text-sm transition-transform" href="ui.html"><span class="material-symbols-outlined mr-4">query_stats</span>Risk Assessments</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Canvas Area -->
+    <main class="ml-0 md:ml-72 min-h-screen p-4 md:p-16 lg:p-24">
+        <!-- Header Section -->
+        <header class="mb-12 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+            <div>
+                <h2 class="font-headline font-extrabold text-xl md:text-5xl text-on-surface tracking-tight mb-2">Bone Health Assessment</h2>
+                <div class="flex items-center space-x-4">
+                    <span class="bg-primary-container/10 text-primary font-bold px-3 py-1 rounded-full text-xs tracking-wider uppercase">Step 1 of 3</span>
+                    <div class="w-32 md:w-48 h-1.5 bg-surface-container-high rounded-full overflow-hidden">
+                        <div class="w-1/3 h-full bg-primary-container rounded-full"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="hidden lg:block text-right">
+                <p class="text-sm font-label text-outline uppercase tracking-[0.1em]">Patient Profile</p>
+                <p class="text-lg font-headline font-bold text-primary">Initial Intake</p>
+            </div>
+        </header>
+
+        <!-- Core Content: Bento Layout -->
+        <div class="grid grid-cols-12 gap-8">
+            <!-- Main Form Card -->
+            <section class="col-span-12 lg:col-span-8 bg-surface-container-lowest rounded-[2rem] p-5 md:p-16 lg:p-20 shadow-sm relative overflow-hidden">
+                <div class="absolute top-0 right-0 p-8">
+                    <span class="material-symbols-outlined text-primary/10 text-5xl md:text-8xl select-none">person</span>
+                </div>
+                <form class="relative z-10 space-y-12" id="step1-form">
+                    <!-- Full Name -->
+                    <div class="space-y-4">
+                        <label class="block text-sm font-bold text-outline uppercase tracking-widest">Full Legal Name</label>
+                        <input id="patient-name" class="w-full bg-surface-container-low border-none rounded-2xl px-6 py-4 md:py-5 text-lg md:text-xl font-headline font-semibold text-on-surface focus:ring-2 focus:ring-primary-container/30 transition-all" placeholder="e.g. Julianne Sterling" type="text"/>
+                    </div>
+
+                    <!-- Age & Ethnicity Row -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                        <div class="space-y-4">
+                            <label class="block text-sm font-bold text-outline uppercase tracking-widest">Current Age</label>
+                            <input id="patient-age" class="w-full bg-surface-container-low border-none rounded-2xl px-6 py-4 md:py-5 text-lg md:text-xl font-headline font-semibold text-on-surface focus:ring-2 focus:ring-primary-container/30 transition-all" placeholder="45" type="number"/>
+                        </div>
+                        <div class="space-y-4">
+                            <label class="block text-sm font-bold text-outline uppercase tracking-widest">Ethnicity</label>
+                            <select id="patient-ethnicity" class="w-full bg-surface-container-low border-none rounded-2xl px-6 py-4 md:py-5 text-lg md:text-xl font-headline font-semibold text-on-surface focus:ring-2 focus:ring-primary-container/30 transition-all cursor-pointer">
+                                <option value="">Select Population Group</option>
+                                <option value="Caucasian">Caucasian</option>
+                                <option value="African American">African American</option>
+                                <option value="Asian">Asian</option>
+                                <option value="Hispanic / Latino">Hispanic / Latino</option>
+                                <option value="Other / Mixed">Other / Mixed</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Gender Toggle -->
+                    <div class="space-y-4">
+                        <label class="block text-sm font-bold text-outline uppercase tracking-widest">Biological Sex</label>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="gender-group">
+                            <button class="gender-btn flex items-center justify-center space-x-3 py-4 md:py-6 px-4 rounded-2xl border-2 border-primary-container bg-primary-container/5 text-primary transition-all duration-300" type="button" data-value="Female">
+                                <span class="material-symbols-outlined">female</span>
+                                <span class="font-bold">Female</span>
+                            </button>
+                            <button class="gender-btn flex items-center justify-center space-x-3 py-4 md:py-6 px-4 rounded-2xl border-2 border-outline-variant bg-surface-container-low text-on-surface-variant hover:border-primary transition-all duration-300" type="button" data-value="Male">
+                                <span class="material-symbols-outlined">male</span>
+                                <span class="font-bold">Male</span>
+                            </button>
+                            <button class="gender-btn flex items-center justify-center space-x-3 py-4 md:py-6 px-4 rounded-2xl border-2 border-outline-variant bg-surface-container-low text-on-surface-variant hover:border-primary transition-all duration-300" type="button" data-value="Other">
+                                <span class="material-symbols-outlined">more_horiz</span>
+                                <span class="font-bold">Other</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Action Area -->
+                    <div class="pt-8 flex justify-end">
+                        <button type="button" id="next-btn" class="w-full md:w-auto bg-primary-container text-on-primary font-headline font-extrabold text-lg px-12 py-5 rounded-2xl flex items-center justify-center space-x-3 shadow-lg hover:translate-y-[-2px] transition-all">
+                            <span>Next: Clinical Profile</span>
+                            <span class="material-symbols-outlined">arrow_forward</span>
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Sidebar Info -->
+            <aside class="col-span-12 lg:col-span-4 space-y-8">
+                <div class="bg-surface-container-low rounded-[2rem] p-8">
+                    <div class="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary mb-6">
+                        <span class="material-symbols-outlined">verified_user</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Clinically Verified</h3>
+                    <p class="text-on-surface-variant text-sm leading-relaxed mb-6">
+                        This assessment is based on peer-reviewed clinical data and provides institutional-grade risk insights.
+                    </p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-3 text-xs font-bold text-outline uppercase tracking-wider">
+                            <span class="material-symbols-outlined text-primary text-sm">check_circle</span> HIPAA Compliant
+                        </li>
+                        <li class="flex items-center gap-3 text-xs font-bold text-outline uppercase tracking-wider">
+                            <span class="material-symbols-outlined text-primary text-sm">check_circle</span> Data Encrypted
+                        </li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
+
+        <footer class="mt-20 py-10 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-6 text-slate-400 text-xs">
+            <p>© 2026 OsteoScan AI. All rights reserved.</p>
+            <div class="flex gap-8">
+                <a href="privacy.html" class="hover:text-primary transition-colors">Privacy Policy</a>
+                <a href="terms.html" class="hover:text-primary transition-colors">Terms of Service</a>
+            </div>
+        </footer>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>

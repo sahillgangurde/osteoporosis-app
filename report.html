@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Osteoporosis Risk Clinical Report</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2e02e9;
+            --text-main: #1a1a1a;
+            --text-secondary: #4a4a4a;
+            --border-color: #e0e0e0;
+            --bg-light: #f9f9f9;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--text-main);
+            line-height: 1.5;
+            background-color: #f0f0f0;
+            padding: 40px 0;
+        }
+
+        .report-container {
+            width: 210mm; /* A4 Width */
+            min-height: 297mm; /* A4 Height */
+            margin: 0 auto;
+            background: white;
+            padding: 20mm;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-color);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+            font-size: 20px;
+        }
+
+        .report-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Patient Details */
+        .section-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--primary-color);
+            padding-left: 10px;
+        }
+
+        .patient-info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            background: var(--bg-light);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+        .info-item label {
+            display: block;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+        }
+
+        .info-item span {
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        /* Risk Score Card */
+        .risk-assessment-section {
+            margin-bottom: 30px;
+        }
+
+        .risk-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            padding: 30px;
+            margin-top: 10px;
+        }
+
+        .risk-value-box {
+            text-align: center;
+        }
+
+        .risk-percentage {
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--primary-color);
+            line-height: 1;
+        }
+
+        .risk-label {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-top: 5px;
+        }
+
+        .risk-level-indicator {
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .level-low { background: #e6fffa; color: #2c7a7b; }
+        .level-medium { background: #fffaf0; color: #975a16; }
+        .level-high { background: #fff5f5; color: #c53030; }
+
+        .analysis-text {
+            flex: 1;
+            margin-left: 40px;
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Data Summary Table */
+        .data-summary-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px 40px;
+            margin-bottom: 30px;
+        }
+
+        .data-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 13px;
+        }
+
+        .data-label {
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .data-value {
+            font-weight: 700;
+        }
+
+        /* Recommendations */
+        .recommendations-section {
+            margin-bottom: 40px;
+        }
+
+        .rec-list {
+            list-style: none;
+        }
+
+        .rec-item {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 12px;
+            font-size: 14px;
+            padding: 10px;
+            background: #fcfcfc;
+            border-radius: 8px;
+        }
+
+        .rec-bullet {
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: auto;
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 10px;
+            color: var(--text-secondary);
+        }
+
+        .disclaimer {
+            max-width: 70%;
+            font-style: italic;
+        }
+
+        /* Controls */
+        .controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 100;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 14px;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .btn-print {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-back {
+            background: white;
+            color: var(--text-main);
+        }
+
+        /* Print Optimization */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .report-container {
+                width: 100%;
+                margin: 0;
+                padding: 15mm;
+                box-shadow: none;
+            }
+            .controls {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="controls" id="controls-bar">
+        <button class="btn btn-back" onclick="const res = JSON.parse(localStorage.getItem('osteo_result') || '{}'); window.location.href = res.high_risk ? 'high_risk_result.html' : 'results.html';">✕ Close</button>
+        <button class="btn btn-print" onclick="window.print()">⬇ Save as PDF / Print</button>
+    </div>
+
+    <div class="report-container">
+        <div class="header">
+            <div class="logo-area">
+                <div class="logo-icon">O</div>
+                <div>
+                    <h1 class="report-title">OsteoScan AI</h1>
+                    <p style="font-size: 10px; font-weight: 700; color: #888; text-transform: uppercase;">Clinical Intelligence Unit</p>
+                </div>
+            </div>
+            <div style="text-align: right;">
+                <p id="report-date" style="font-size: 12px; font-weight: 600; color: var(--text-secondary);">Date: {{date}}</p>
+                <p style="font-size: 10px; color: #aaa;">Ref: OS-2024-8842</p>
+            </div>
+        </div>
+
+        <section>
+            <h2 class="section-title">Patient Profile</h2>
+            <div class="patient-info-grid">
+                <div class="info-item">
+                    <label>Full Name</label>
+                    <span id="p-name">{{patient_name}}</span>
+                </div>
+                <div class="info-item">
+                    <label>Age</label>
+                    <span id="p-age">{{age}}</span>
+                </div>
+                <div class="info-item">
+                    <label>Gender</label>
+                    <span id="p-gender">{{gender}}</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="risk-assessment-section">
+            <h2 class="section-title">Risk Assessment Summary</h2>
+            <div class="risk-card">
+                <div class="risk-value-box">
+                    <div id="risk-val" class="risk-percentage">{{risk_percentage}}</div>
+                    <div class="risk-label">Bone Stability Score</div>
+                    <div id="risk-lvl-tag" class="risk-level-indicator level-medium">{{risk_level}}</div>
+                </div>
+                <div id="risk-analysis" class="analysis-text">
+                    {{analysis}}
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">Clinical Data Summary</h2>
+            <div id="input-data-container" class="data-summary-grid">
+                <!-- Data will be populated here -->
+                <div class="data-row"><span class="data-label">Body Weight</span><span class="data-value">{{weight}}</span></div>
+                <div class="data-row"><span class="data-label">Physical Activity</span><span class="data-value">{{activity}}</span></div>
+                <div class="data-row"><span class="data-label">Vitamin D Intake</span><span class="data-value">{{vit_d}}</span></div>
+                <div class="data-row"><span class="data-label">Calcium Intake</span><span class="data-value">{{calcium}}</span></div>
+                <div class="data-row"><span class="data-label">Smoking Status</span><span class="data-value">{{smoking}}</span></div>
+                <div class="data-row"><span class="data-label">Alcohol Consumption</span><span class="data-value">{{alcohol}}</span></div>
+                <div class="data-row"><span class="data-label">Medical Conditions</span><span class="data-value">{{conditions}}</span></div>
+                <div class="data-row"><span class="data-label">Prior Fractures</span><span class="data-value">{{fractures}}</span></div>
+            </div>
+        </section>
+
+        <section class="recommendations-section">
+            <h2 class="section-title">Clinical Recommendations</h2>
+            <ul id="rec-list" class="rec-list">
+                <!-- Recommendations will be populated here -->
+                <li class="rec-item"><span class="rec-bullet">•</span><span>Increase weight-bearing exercises to improve bone density.</span></li>
+                <li class="rec-item"><span class="rec-bullet">•</span><span>Ensure daily calcium intake meets the 1200mg clinical threshold.</span></li>
+                <li class="rec-item"><span class="rec-bullet">•</span><span>Schedule a follow-up DEXA scan within 6 months.</span></li>
+            </ul>
+        </section>
+
+        <div class="footer">
+            <div class="disclaimer">
+                <strong>Disclaimer:</strong> This report is generated by an AI model and is intended for clinical screening purposes only. It does not constitute a medical diagnosis. Please consult with a qualified healthcare professional.
+            </div>
+            <div style="text-align: right;">
+                <p>Generated by OsteoScan AI Engine v2.4</p>
+                <p>© 2026 OsteoScan AI Systems</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Sample Data for fallback
+            const dummyData = {
+                Name: "Sarah J. Montgomery",
+                Age: 68,
+                Gender: "Female",
+                risk_score: 72.45,
+                high_risk: true,
+                explanation: "High risk score influenced by advanced age and previous history of clinical bone density variance.",
+                'Body Weight': "Underweight",
+                'Physical Activity': "Sedentary",
+                'Vitamin D Intake': "Insufficient",
+                'Calcium Intake': "Low",
+                'Smoking': "Yes",
+                'Alcohol Consumption': "Moderate",
+                'Medical Conditions': "Rheumatoid Arthritis",
+                'Prior Fractures': "Yes",
+                'Medications': "Glucocorticoids",
+                'Race/Ethnicity': "Caucasian",
+                'Hormonal Changes': "Post-menopausal"
+            };
+
+            // Get actual data from localStorage
+            const storedResult = JSON.parse(localStorage.getItem("osteo_result") || "{}");
+            const storedFormData = JSON.parse(localStorage.getItem("osteo_formData") || "{}");
+            
+            const data = { ...dummyData, ...storedFormData, ...storedResult };
+
+            // Populate Patient Info
+            document.getElementById('p-name').innerText = data.Name || data.patient_name;
+            document.getElementById('p-age').innerText = data.Age || data.age;
+            document.getElementById('p-gender').innerText = data.Gender || data.gender;
+            document.getElementById('report-date').innerText = "Date: " + new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+            // Populate Risk
+            const score = parseFloat(data.risk_score || 0).toFixed(2);
+            document.getElementById('risk-val').innerText = score + "%";
+            
+            const levelTag = document.getElementById('risk-lvl-tag');
+            if (score < 30) {
+                levelTag.innerText = "Low Risk";
+                levelTag.className = "risk-level-indicator level-low";
+            } else if (score < 60) {
+                levelTag.innerText = "Moderate Risk";
+                levelTag.className = "risk-level-indicator level-medium";
+            } else {
+                levelTag.innerText = "High Risk";
+                levelTag.className = "risk-level-indicator level-high";
+            }
+
+            document.getElementById('risk-analysis').innerText = data.explanation || data.analysis;
+
+            // Populate Data Summary
+            const inputDataContainer = document.getElementById('input-data-container');
+            inputDataContainer.innerHTML = '';
+            const fields = [
+                'Body Weight', 'Physical Activity', 'Vitamin D Intake', 'Calcium Intake',
+                'Alcohol Consumption', 'Smoking', 'Race/Ethnicity', 'Hormonal Changes',
+                'Family History', 'Medical Conditions', 'Prior Fractures', 'Medications'
+            ];
+
+            fields.forEach(field => {
+                const row = document.createElement('div');
+                row.className = 'data-row';
+                row.innerHTML = `<span class="data-label">${field}</span><span class="data-value">${data[field] || 'Unknown'}</span>`;
+                inputDataContainer.appendChild(row);
+            });
+
+            // Populate Recommendations
+            const recList = document.getElementById('rec-list');
+            recList.innerHTML = '';
+            
+            let recommendations = [];
+            if (score > 60) {
+                recommendations = [
+                    "Immediate consultation with a rheumatologist or endocrinologist.",
+                    "Diagnostic DEXA scan to confirm bone mineral density (BMD).",
+                    "Review medications for potential bone-depleting side effects.",
+                    "Initiate pharmaceutical intervention as per specialist guidance."
+                ];
+            } else if (score > 30) {
+                recommendations = [
+                    "Increase daily intake of Calcium (1200mg) and Vitamin D (2000 IU).",
+                    "Engage in weight-bearing resistance training 3x per week.",
+                    "Monitor for any new skeletal pain or fracture history.",
+                    "Follow-up assessment in 6 months."
+                ];
+            } else {
+                recommendations = [
+                    "Maintain current active lifestyle and healthy diet.",
+                    "Ensure adequate baseline nutrition for long-term health.",
+                    "Standard annual check-up recommended.",
+                    "Good bone stability index maintained."
+                ];
+            }
+
+            recommendations.forEach(rec => {
+                const li = document.createElement('li');
+                li.className = 'rec-item';
+                li.innerHTML = `<span class="rec-bullet">•</span><span>${rec}</span>`;
+                recList.appendChild(li);
+            });
+
+            // --- Auto-print when opened via Download Report button ---
+            // If URL contains ?autoprint=1, trigger print dialog automatically
+            const params = new URLSearchParams(window.location.search);
+            if (params.get('autoprint') === '1') {
+                // Small delay to let fonts and data render first
+                setTimeout(() => { window.print(); }, 800);
+            }
+        });
+    </script>
+
+<footer class="bg-[#f2f3f9] py-12 mt-auto">
+<div class="flex flex-col md:flex-row justify-between items-center px-8 gap-6 max-w-7xl mx-auto text-slate-500 text-sm">
+<p>© 2026 OsteoScan AI. Precision Clinical Editorial.</p>
+<div class="flex gap-8">
+    <a href="privacy.html" class="hover:text-[#4A3AFF] transition-colors">Privacy Policy</a>
+    <a href="terms.html" class="hover:text-[#4A3AFF] transition-colors">Terms of Service</a>
+</div>
+</div>
+</footer>
+</body>
+</html>

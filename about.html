@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>How It Works | OsteoScan AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          "primary": "#2e02e9", "primary-container": "#4a3aff", "on-primary": "#ffffff",
+          "secondary": "#006b58", "secondary-container": "#5ffbd6", "on-secondary-container": "#00725e",
+          "surface": "#f8f9ff", "on-surface": "#191c20", "surface-container-low": "#f2f3f9",
+          "surface-container-lowest": "#ffffff", "surface-container": "#eceef3",
+          "surface-container-high": "#e7e8ee", "outline-variant": "#c7c4da", "outline": "#777588",
+          "on-surface-variant": "#464557",
+        },
+        fontFamily: { "headline": ["Manrope"], "body": ["Plus Jakarta Sans"] }
+      }
+    }
+  }
+</script>
+<style>
+  body { font-family: 'Plus Jakarta Sans', sans-serif; }
+  h1, h2, h3, h4 { font-family: 'Manrope', sans-serif; }
+  .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+  .step-connector { position: absolute; left: 23px; top: 52px; bottom: -20px; width: 2px; background: linear-gradient(to bottom, #4a3aff, #e0e0e0); }
+</style>
+</head>
+<body class="bg-surface text-on-surface overflow-x-hidden">
+
+<button id="menu-btn" class="md:hidden fixed top-5 left-5 z-50 bg-white p-2 rounded-xl shadow-lg text-primary">
+    <span class="material-symbols-outlined">menu</span>
+</button>
+
+<!-- Nav -->
+<header class="fixed top-0 w-full z-50 bg-[#f8f9ff]/80 backdrop-blur-md shadow-[0px_4px_20px_rgba(74,58,255,0.05)]">
+  <div class="flex justify-between items-center px-6 py-4 max-w-7xl mx-auto">
+    <a href="dashboard.html" class="flex items-center gap-2">
+      <span class="material-symbols-outlined text-[#4A3AFF]">clinical_notes</span>
+      <span class="text-xl font-bold bg-gradient-to-r from-[#4A3AFF] to-[#6E61FF] bg-clip-text text-transparent font-headline">OsteoScan AI</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-8">
+      <a class="text-slate-600 font-medium hover:text-[#4A3AFF] transition-colors" href="dashboard.html">Home</a>
+      <a class="text-[#4A3AFF] border-b-2 border-[#4A3AFF] font-medium py-1" href="about.html">How it Works</a>
+      <a class="text-slate-600 font-medium hover:text-[#4A3AFF] transition-colors" href="clinical_data.html">Clinical Data</a>
+    </nav>
+    <button onclick="window.location.href='ui.html'" class="bg-[#4a3aff] text-white px-6 py-2.5 rounded-full font-bold text-sm shadow-lg hover:bg-[#3929ee] transition-all active:scale-95">
+      Get Started
+    </button>
+  </div>
+</header>
+
+<main class="pt-28 pb-24">
+
+  <!-- Hero -->
+  <section class="text-center px-6 py-16 max-w-4xl mx-auto">
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#4a3aff]/10 text-[#4a3aff] text-xs font-bold tracking-widest mb-6">
+      <span class="material-symbols-outlined text-sm" style="font-variation-settings:'FILL' 1;">science</span>
+      OUR METHODOLOGY
+    </div>
+    <h1 class="text-2xl md:text-6xl lg:text-6xl font-extrabold tracking-tight mb-6 leading-[1.1]">
+      How OsteoScan AI<br><span class="text-[#4a3aff]">Predicts Your Risk</span>
+    </h1>
+    <p class="text-xl text-on-surface-variant leading-relaxed max-w-2xl mx-auto">
+      Our system uses a clinically validated ensemble of Machine Learning models trained on 10,000+ patient records to deliver accurate, probability-based risk predictions in under 2 minutes.
+    </p>
+  </section>
+
+  <!-- Step-by-Step Process -->
+  <section class="max-w-5xl mx-auto px-6 py-16">
+    <h2 class="text-3xl font-extrabold text-center mb-16">The 4-Step Process</h2>
+    <div class="grid md:grid-cols-1 sm:grid-cols-1 md:grid-cols-2 gap-4 md:p-16">
+
+      <div class="flex gap-6 items-start">
+        <div class="flex-shrink-0 w-12 h-12 rounded-2xl bg-[#4a3aff] text-white flex items-center justify-center font-extrabold text-xl shadow-lg">1</div>
+        <div>
+          <h3 class="text-xl font-bold mb-2">Data Collection</h3>
+          <p class="text-on-surface-variant leading-relaxed">You provide demographic details (age, gender, ethnicity), medical history, and lifestyle factors through our 3-step guided assessment form.</p>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <span class="text-xs bg-[#4a3aff]/10 text-[#4a3aff] px-3 py-1 rounded-full font-semibold">Age & Gender</span>
+            <span class="text-xs bg-[#4a3aff]/10 text-[#4a3aff] px-3 py-1 rounded-full font-semibold">Medical History</span>
+            <span class="text-xs bg-[#4a3aff]/10 text-[#4a3aff] px-3 py-1 rounded-full font-semibold">Lifestyle</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex gap-6 items-start">
+        <div class="flex-shrink-0 w-12 h-12 rounded-2xl bg-[#006b58] text-white flex items-center justify-center font-extrabold text-xl shadow-lg">2</div>
+        <div>
+          <h3 class="text-xl font-bold mb-2">Preprocessing & Feature Engineering</h3>
+          <p class="text-on-surface-variant leading-relaxed">Input data is normalized, encoded, and enriched — including Age Binning, handling missing values, and one-hot encoding for categorical features.</p>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <span class="text-xs bg-[#006b58]/10 text-[#006b58] px-3 py-1 rounded-full font-semibold">Age Binning</span>
+            <span class="text-xs bg-[#006b58]/10 text-[#006b58] px-3 py-1 rounded-full font-semibold">Normalization</span>
+            <span class="text-xs bg-[#006b58]/10 text-[#006b58] px-3 py-1 rounded-full font-semibold">Encoding</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex gap-6 items-start">
+        <div class="flex-shrink-0 w-12 h-12 rounded-2xl bg-[#8f1721] text-white flex items-center justify-center font-extrabold text-xl shadow-lg">3</div>
+        <div>
+          <h3 class="text-xl font-bold mb-2">AI Model Inference</h3>
+          <p class="text-on-surface-variant leading-relaxed">Your data is passed to the best-performing ML model (XGBoost, SVM, or Neural Network) which uses <code class="text-xs bg-slate-100 px-1.5 py-0.5 rounded">predict_proba()</code> to return a probability-based risk score.</p>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <span class="text-xs bg-[#8f1721]/10 text-[#8f1721] px-3 py-1 rounded-full font-semibold">XGBoost</span>
+            <span class="text-xs bg-[#8f1721]/10 text-[#8f1721] px-3 py-1 rounded-full font-semibold">SVM</span>
+            <span class="text-xs bg-[#8f1721]/10 text-[#8f1721] px-3 py-1 rounded-full font-semibold">Neural Network</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex gap-6 items-start">
+        <div class="flex-shrink-0 w-12 h-12 rounded-2xl bg-[#4a3aff] text-white flex items-center justify-center font-extrabold text-xl shadow-lg">4</div>
+        <div>
+          <h3 class="text-xl font-bold mb-2">Clinical Report Generation</h3>
+          <p class="text-on-surface-variant leading-relaxed">A personalized risk report is generated with percentage score, risk level classification, explanation, and tailored medical recommendations.</p>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <span class="text-xs bg-[#4a3aff]/10 text-[#4a3aff] px-3 py-1 rounded-full font-semibold">Risk Score</span>
+            <span class="text-xs bg-[#4a3aff]/10 text-[#4a3aff] px-3 py-1 rounded-full font-semibold">PDF Report</span>
+            <span class="text-xs bg-[#4a3aff]/10 text-[#4a3aff] px-3 py-1 rounded-full font-semibold">Recommendations</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Model Details -->
+  <section class="bg-surface-container-low py-10 md:py-20 px-6">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="text-3xl font-extrabold text-center mb-4">Our Model Architecture</h2>
+      <p class="text-center text-on-surface-variant mb-12 max-w-2xl mx-auto">All three models are trained, evaluated, and compared. The best-performing model is automatically selected for deployment.</p>
+
+      <div class="grid md:grid-cols-1 sm:grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-white rounded-3xl p-8 shadow-sm border border-outline-variant/20 text-center hover:-translate-y-1 transition-all">
+          <div class="w-16 h-16 rounded-2xl bg-[#4a3aff]/10 flex items-center justify-center mx-auto mb-6">
+            <span class="material-symbols-outlined text-[#4a3aff] text-3xl" style="font-variation-settings:'FILL' 1;">auto_awesome</span>
+          </div>
+          <h3 class="text-xl font-bold mb-2">XGBoost</h3>
+          <p class="text-sm text-on-surface-variant mb-4">Gradient boosting ensemble that excels on tabular medical data. Handles class imbalance with <code class="text-xs">scale_pos_weight</code>.</p>
+          <div class="text-3xl font-extrabold text-[#4a3aff]">94.2%</div>
+          <p class="text-xs text-on-surface-variant mt-1">Cross-Validated Accuracy</p>
+        </div>
+
+        <div class="bg-white rounded-3xl p-8 shadow-sm border border-[#4a3aff]/30 text-center hover:-translate-y-1 transition-all relative">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#4a3aff] text-white text-xs font-bold px-4 py-1 rounded-full">BEST MODEL</div>
+          <div class="w-16 h-16 rounded-2xl bg-[#006b58]/10 flex items-center justify-center mx-auto mb-6">
+            <span class="material-symbols-outlined text-[#006b58] text-3xl" style="font-variation-settings:'FILL' 1;">hub</span>
+          </div>
+          <h3 class="text-xl font-bold mb-2">Neural Network</h3>
+          <p class="text-sm text-on-surface-variant mb-4">Multi-layer perceptron trained with SMOTE for class balance, capturing complex non-linear feature interactions.</p>
+          <div class="text-3xl font-extrabold text-[#006b58]">95.8%</div>
+          <p class="text-xs text-on-surface-variant mt-1">Cross-Validated Accuracy</p>
+        </div>
+
+        <div class="bg-white rounded-3xl p-8 shadow-sm border border-outline-variant/20 text-center hover:-translate-y-1 transition-all">
+          <div class="w-16 h-16 rounded-2xl bg-[#8f1721]/10 flex items-center justify-center mx-auto mb-6">
+            <span class="material-symbols-outlined text-[#8f1721] text-3xl" style="font-variation-settings:'FILL' 1;">scatter_plot</span>
+          </div>
+          <h3 class="text-xl font-bold mb-2">SVM</h3>
+          <p class="text-sm text-on-surface-variant mb-4">Support Vector Machine with RBF kernel. Effective in high-dimensional feature spaces with class weight balancing.</p>
+          <div class="text-3xl font-extrabold text-[#8f1721]">91.7%</div>
+          <p class="text-xs text-on-surface-variant mt-1">Cross-Validated Accuracy</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="max-w-5xl mx-auto px-6 py-10 md:py-20">
+    <h2 class="text-3xl font-extrabold text-center mb-12">Key Technical Features</h2>
+    <div class="grid md:grid-cols-1 sm:grid-cols-1 md:grid-cols-2 gap-8">
+      <div class="flex gap-4 p-6 rounded-2xl bg-surface-container-low hover:bg-white transition-all border border-transparent hover:border-outline-variant/20 hover:shadow-sm">
+        <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-[#4a3aff]/10 flex items-center justify-center">
+          <span class="material-symbols-outlined text-[#4a3aff]">balance</span>
+        </div>
+        <div><h4 class="font-bold mb-1">SMOTE Class Balancing</h4><p class="text-sm text-on-surface-variant">Synthetic Minority Oversampling ensures the model doesn't ignore the rare high-risk class.</p></div>
+      </div>
+      <div class="flex gap-4 p-6 rounded-2xl bg-surface-container-low hover:bg-white transition-all border border-transparent hover:border-outline-variant/20 hover:shadow-sm">
+        <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-[#4a3aff]/10 flex items-center justify-center">
+          <span class="material-symbols-outlined text-[#4a3aff]">percent</span>
+        </div>
+        <div><h4 class="font-bold mb-1">Probability-Based Output</h4><p class="text-sm text-on-surface-variant">Using <code class="text-xs bg-slate-100 px-1 rounded">predict_proba()</code> instead of binary 0/1 to give a nuanced, percentage-based risk score.</p></div>
+      </div>
+      <div class="flex gap-4 p-6 rounded-2xl bg-surface-container-low hover:bg-white transition-all border border-transparent hover:border-outline-variant/20 hover:shadow-sm">
+        <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-[#4a3aff]/10 flex items-center justify-center">
+          <span class="material-symbols-outlined text-[#4a3aff]">category</span>
+        </div>
+        <div><h4 class="font-bold mb-1">Age Binning</h4><p class="text-sm text-on-surface-variant">Ages are grouped into clinically meaningful brackets (Young Adult, Adult, Middle-Aged, Senior, Elderly).</p></div>
+      </div>
+      <div class="flex gap-4 p-6 rounded-2xl bg-surface-container-low hover:bg-white transition-all border border-transparent hover:border-outline-variant/20 hover:shadow-sm">
+        <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-[#4a3aff]/10 flex items-center justify-center">
+          <span class="material-symbols-outlined text-[#4a3aff]">lock</span>
+        </div>
+        <div><h4 class="font-bold mb-1">Privacy First</h4><p class="text-sm text-on-surface-variant">All data is processed locally and in-session. No patient data is stored server-side after prediction.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="text-center px-6 py-16 max-w-2xl mx-auto">
+    <h2 class="text-xl md:text-5xl font-extrabold mb-4">Ready to Check Your Risk?</h2>
+    <p class="text-on-surface-variant mb-8 text-lg">Complete the 3-step assessment in under 2 minutes.</p>
+    <button onclick="window.location.href='ui.html'" class="bg-[#4a3aff] text-white px-10 py-4 rounded-xl font-bold text-lg shadow-lg hover:-translate-y-1 transition-all flex items-center gap-3 mx-auto">
+      Start Free Assessment <span class="material-symbols-outlined">arrow_forward</span>
+    </button>
+  </section>
+
+</main>
+
+
+<footer class="bg-[#f2f3f9] py-12 mt-auto">
+<div class="flex flex-col md:flex-row justify-between items-center px-8 gap-6 max-w-7xl mx-auto text-slate-500 text-sm">
+<p>© 2026 OsteoScan AI. Precision Clinical Editorial.</p>
+<div class="flex gap-8">
+    <a href="privacy.html" class="hover:text-[#4A3AFF] transition-colors">Privacy Policy</a>
+    <a href="terms.html" class="hover:text-[#4A3AFF] transition-colors">Terms of Service</a>
+</div>
+</div>
+</footer>
+
+
+<script src="app.js"></script>
+</body>
+</html>
