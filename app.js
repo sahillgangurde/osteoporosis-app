@@ -9,6 +9,10 @@ document.addEventListener("DOMContentLoaded", () => {
     };
     const getResult = () => JSON.parse(localStorage.getItem("osteo_result") || "null");
     const setResult = (res) => localStorage.setItem("osteo_result", JSON.stringify(res));
+    const clearAllData = () => {
+        localStorage.removeItem("osteo_formData");
+        localStorage.removeItem("osteo_result");
+    };
 
     // --- Mobile Sidebar Toggle Logic ---
     const sidebar = document.getElementById('sidebar');
@@ -70,6 +74,16 @@ document.addEventListener("DOMContentLoaded", () => {
             setFormData(currentData);
             window.location.href = "medical_records.html";
         });
+        
+        // Add a "Reset" button to the UI (First page)
+        const resetBtn = document.createElement('button');
+        resetBtn.innerText = "Start Fresh / Clear Data";
+        resetBtn.className = "text-slate-400 text-xs underline mt-4 hover:text-primary transition-colors";
+        resetBtn.onclick = () => {
+            clearAllData();
+            window.location.reload();
+        };
+        document.getElementById('gender-group')?.parentElement?.appendChild(resetBtn);
     }
 
     // --- Page 2: medical_records.html (Clinical Data) ---
