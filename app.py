@@ -26,9 +26,14 @@ def load_models():
         print(f"Loading best model type: {best_model_type}")
 
         if best_model_type == "Neural Network":
-            from tensorflow.keras.models import load_model
-            model = load_model("osteoporosis_nn_model.h5")
-            preprocessor = joblib.load("preprocessor.pkl")
+            try:
+                from tensorflow.keras.models import load_model
+                model = load_model("osteoporosis_nn_model.h5")
+                preprocessor = joblib.load("preprocessor.pkl")
+            except ImportError:
+                print("TensorFlow not installed. Falling back to XGBoost/PKL model.")
+                best_model_type = "XGBoost"
+                model = joblib.load('osteoporosis_best.pkl' if os.path.exists('osteoporosis_best.pkl') else 'osteoporosis.pkl')
         else:
             if os.path.exists('osteoporosis_best.pkl'):
                 model = joblib.load('osteoporosis_best.pkl')
