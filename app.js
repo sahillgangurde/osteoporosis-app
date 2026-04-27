@@ -179,10 +179,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const riskExplanation = document.getElementById('risk-explanation');
         const factorsList = document.getElementById('factors-list');
         const factorsContainer = document.getElementById('factors-container');
+        const patientSummary = document.getElementById('patient-summary');
 
         if (riskPercentage) riskPercentage.innerText = result.risk_score.toFixed(1) + '%';
         if (riskBar) riskBar.style.width = result.risk_score + '%';
-        if (riskExplanation) riskExplanation.innerText = result.explanation;
+        if (riskExplanation) riskExplanation.innerText = result.explanation || "Clinical assessment complete.";
+
+        const formData = getFormData();
+        if (patientSummary) {
+            patientSummary.innerHTML = `
+                <div class="flex justify-between border-b border-white/10 pb-2"><span>Full Name:</span> <span>${formData.Name || 'N/A'}</span></div>
+                <div class="flex justify-between border-b border-white/10 pb-2"><span>Age:</span> <span>${formData.Age || 'N/A'}</span></div>
+                <div class="flex justify-between border-b border-white/10 pb-2"><span>Gender:</span> <span>${formData.Gender || 'N/A'}</span></div>
+                <div class="flex justify-between border-b border-white/10 pb-2"><span>Origin:</span> <span>${formData['Race/Ethnicity'] || 'N/A'}</span></div>
+            `;
+        }
 
         if (result.top_factors && factorsList) {
             factorsContainer.classList.remove('hidden');
