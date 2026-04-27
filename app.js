@@ -208,11 +208,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (result.top_factors && factorsList) {
             factorsContainer.classList.remove('hidden');
-            factorsList.innerHTML = result.top_factors.map(f => `
+            
+            // Normalize the impacts so they look like realistic percentages (relative to the top factors)
+            const totalImpact = result.top_factors.reduce((sum, f) => sum + f.impact, 0);
+            
+            factorsList.innerHTML = result.top_factors.map(f => {
+                const relativePercentage = totalImpact > 0 ? (f.impact / totalImpact) * 100 : 0;
+                // Cap at 99% just in case of any weird math anomalies, though unlikely with this formula
+                const displayVal = Math.min(relativePercentage, 99.9).toFixed(1);
+                
+                return `
                 <div class="px-4 py-2 bg-white/20 rounded-xl text-xs font-bold border border-white/30 backdrop-blur-sm">
-                    ${f.factor}: +${(f.impact * 100).toFixed(1)}%
+                    ${f.factor}: +${displayVal}%
                 </div>
-            `).join('');
+            `}).join('');
         }
 
         // --- DIRECT PDF DOWNLOAD USING PROFESSIONAL REPORT TEMPLATE ---
