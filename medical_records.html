@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>OsteoScan AI | Medical Records</title>
+    <title>OsteoScan AI | Clinical Profile</title>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -13,15 +13,12 @@
         theme: {
           extend: {
             "colors": {
-                    "secondary-fixed-dim": "#38debb",
-                    "on-surface-variant": "#464557",
-                    "surface-container-low": "#f2f3f9",
-                    "tertiary": "#8f1721",
-                    "primary-container": "#4a3aff",
                     "primary": "#2e02e9",
+                    "primary-container": "#4a3aff",
                     "background": "#f8f9ff",
                     "on-surface": "#191c20",
                     "outline": "#777588",
+                    "surface-container-low": "#f2f3f9",
                     "surface-container-lowest": "#ffffff"
             },
             "fontFamily": { "headline": ["Manrope"], "body": ["Plus Jakarta Sans"] }
@@ -38,11 +35,11 @@
     </button>
 
     <!-- Sidebar -->
-    <aside id="sidebar" class="h-screen w-72 fixed left-0 top-0 bg-[#f2f3f9] dark:bg-slate-900 flex flex-col py-8 z-50 -translate-x-full md:translate-x-0 transition-transform duration-300 shadow-xl md:shadow-none">
+    <aside id="sidebar" class="h-screen w-72 fixed left-0 top-0 bg-[#f2f3f9] flex flex-col py-8 z-50 -translate-x-full md:translate-x-0 transition-transform duration-300 shadow-xl md:shadow-none">
         <div class="px-8 mb-12 flex justify-between items-center">
             <div>
                 <h1 class="font-['Manrope'] font-extrabold text-2xl tracking-tight text-[#4A3AFF]">OsteoScan</h1>
-                <p class="text-xs text-slate-500 font-medium tracking-widest mt-1">CLINICAL LUXE SUITE</p>
+                <p class="text-xs text-slate-500 font-medium tracking-widest mt-1">CLINICAL SUITE</p>
             </div>
             <button id="close-sidebar" class="md:hidden text-slate-500 hover:text-primary">
                 <span class="material-symbols-outlined">close</span>
@@ -57,81 +54,88 @@
     </aside>
 
     <main class="ml-0 md:ml-72 min-h-screen p-4 md:p-16 lg:p-24">
-        <header class="mb-12 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
-            <div>
-                <h2 class="font-headline font-extrabold text-xl md:text-5xl text-on-surface tracking-tight mb-2">Clinical Profile</h2>
-                <div class="flex items-center space-x-4">
-                    <span class="bg-primary-container/10 text-primary font-bold px-3 py-1 rounded-full text-xs tracking-wider uppercase">Step 2 of 3</span>
-                    <div class="w-32 md:w-48 h-1.5 bg-surface-container-high rounded-full overflow-hidden">
-                        <div class="w-2/3 h-full bg-primary-container rounded-full"></div>
-                    </div>
+        <header class="mb-12">
+            <h2 class="font-headline font-extrabold text-3xl md:text-5xl text-on-surface tracking-tight mb-2">Clinical Profile</h2>
+            <div class="flex items-center space-x-4">
+                <span class="bg-primary-container/10 text-primary font-bold px-3 py-1 rounded-full text-xs tracking-wider uppercase">Step 2 of 3</span>
+                <div class="w-32 md:w-48 h-1.5 bg-slate-200 rounded-full overflow-hidden">
+                    <div class="w-2/3 h-full bg-primary-container rounded-full"></div>
                 </div>
             </div>
         </header>
 
-        <section class="max-w-5xl bg-surface-container-lowest rounded-[2rem] p-5 md:p-16 lg:p-20 shadow-sm relative overflow-hidden">
-            <div class="absolute top-0 right-0 p-8">
-                <span class="material-symbols-outlined text-primary/10 text-5xl md:text-8xl select-none">medical_information</span>
+        <section class="max-w-5xl bg-white rounded-[2.5rem] p-8 md:p-16 shadow-sm border border-slate-100 relative overflow-hidden">
+            <div class="absolute top-0 right-0 p-8 opacity-10">
+                <span class="material-symbols-outlined text-8xl">medical_information</span>
             </div>
-            <form class="relative z-10 space-y-12" id="medical-form">
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+
+            <form class="relative z-10 space-y-10" id="medical-form">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <!-- Hormonal Status -->
                     <div class="space-y-4">
-                        <label class="block text-sm font-bold text-outline uppercase tracking-widest">Menopause / Hormone Status</label>
-                        <select id="hormonal-changes" class="w-full bg-surface-container-low border-none rounded-2xl px-6 py-4 md:py-5 text-lg font-semibold">
+                        <label class="block text-sm font-bold text-slate-400 uppercase tracking-widest">Menopause / Hormone Status</label>
+                        <select id="hormonal-changes" class="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl px-6 py-4 text-lg font-bold focus:border-primary-container transition-all cursor-pointer">
                             <option value="Normal">Normal / Pre-menopausal</option>
                             <option value="Postmenopausal">Postmenopausal</option>
                             <option value="Other">Hormonal Imbalance / Other</option>
                         </select>
                     </div>
+
+                    <!-- Family History -->
                     <div class="space-y-4">
-                        <label class="block text-sm font-bold text-outline uppercase tracking-widest">Family History of Osteoporosis</label>
+                        <label class="block text-sm font-bold text-slate-400 uppercase tracking-widest">Any family history of Osteoporosis?</label>
                         <div class="grid grid-cols-2 gap-4">
-                            <button type="button" class="family-btn py-4 md:py-5 rounded-2xl border-2 border-outline-variant bg-surface-container-low font-bold" data-value="No">No</button>
-                            <button type="button" class="family-btn py-4 md:py-5 rounded-2xl border-2 border-outline-variant bg-surface-container-low font-bold" data-value="Yes">Yes</button>
+                            <button type="button" class="family-btn py-4 rounded-2xl border-2 border-slate-100 bg-slate-50 font-bold hover:border-primary-container transition-all" data-value="No">No</button>
+                            <button type="button" class="family-btn py-4 rounded-2xl border-2 border-slate-100 bg-slate-50 font-bold hover:border-primary-container transition-all" data-value="Yes">Yes</button>
                         </div>
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <!-- Prior Fractures -->
                     <div class="space-y-4">
-                        <label class="block text-sm font-bold text-outline uppercase tracking-widest">Prior Fractures</label>
+                        <label class="block text-sm font-bold text-slate-400 uppercase tracking-widest">Any bone breaks (fractures) before?</label>
                         <div class="grid grid-cols-2 gap-4">
-                            <button type="button" class="fracture-btn py-4 md:py-5 rounded-2xl border-2 border-outline-variant bg-surface-container-low font-bold" data-value="No">None</button>
-                            <button type="button" class="fracture-btn py-4 md:py-5 rounded-2xl border-2 border-outline-variant bg-surface-container-low font-bold" data-value="Yes">Prior History</button>
+                            <button type="button" class="fracture-btn py-4 rounded-2xl border-2 border-slate-100 bg-slate-50 font-bold hover:border-primary-container transition-all" data-value="No">None</button>
+                            <button type="button" class="fracture-btn py-4 rounded-2xl border-2 border-slate-100 bg-slate-50 font-bold hover:border-primary-container transition-all" data-value="Yes">Prior History</button>
                         </div>
                     </div>
+
+                    <!-- Existing Conditions -->
                     <div class="space-y-4">
-                        <label class="block text-sm font-bold text-outline uppercase tracking-widest">Existing Medical Conditions?</label>
+                        <label class="block text-sm font-bold text-slate-400 uppercase tracking-widest">Any other health problems?</label>
                         <div class="grid grid-cols-2 gap-4">
-                            <button type="button" class="condition-toggle-btn py-4 md:py-5 rounded-2xl border-2 border-outline-variant bg-surface-container-low font-bold" data-value="No">No</button>
-                            <button type="button" class="condition-toggle-btn py-4 md:py-5 rounded-2xl border-2 border-outline-variant bg-surface-container-low font-bold" data-value="Yes">Yes</button>
+                            <button type="button" class="condition-toggle-btn py-4 rounded-2xl border-2 border-slate-100 bg-slate-50 font-bold hover:border-primary-container transition-all" data-value="No">No</button>
+                            <button type="button" class="condition-toggle-btn py-4 rounded-2xl border-2 border-slate-100 bg-slate-50 font-bold hover:border-primary-container transition-all" data-value="Yes">Yes</button>
                         </div>
                     </div>
                 </div>
 
-                <div id="medical-conditions-container" class="space-y-4 hidden">
-                    <label class="block text-sm font-bold text-outline uppercase tracking-widest">Select Condition</label>
-                    <select id="medical-conditions" class="w-full bg-surface-container-low border-none rounded-2xl px-6 py-4 md:py-5 text-lg font-semibold">
-                        <option value="None">None</option>
+                <!-- Conditional Select -->
+                <div id="medical-conditions-container" class="space-y-4 hidden animate-in fade-in slide-in-from-top-2 duration-300">
+                    <label class="block text-sm font-bold text-slate-400 uppercase tracking-widest text-primary">Select Main Condition</label>
+                    <select id="medical-conditions" class="w-full bg-blue-50 border-2 border-primary-container/20 rounded-2xl px-6 py-4 text-lg font-bold focus:border-primary-container transition-all">
+                        <option value="None">None / Other</option>
                         <option value="Rheumatoid Arthritis">Rheumatoid Arthritis</option>
                         <option value="Hyperthyroidism">Hyperthyroidism</option>
-                        <option value="Other">Chronic Condition - Other</option>
+                        <option value="Diabetes">Diabetes (Type 1/2)</option>
                     </select>
                 </div>
 
+                <!-- Navigation -->
                 <div class="pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
-                    <button type="button" onclick="window.location.href='ui.html'" class="w-full md:w-auto flex items-center justify-center gap-2 text-outline font-bold">
-                        <span class="material-symbols-outlined">arrow_back</span>Back
+                    <button type="button" onclick="window.location.href='ui.html'" class="w-full md:w-auto flex items-center justify-center gap-2 text-slate-400 font-bold hover:text-primary transition-colors">
+                        <span class="material-symbols-outlined">arrow_back</span> Back
                     </button>
-                    <button type="button" id="next-btn-step2" class="w-full md:w-auto bg-primary-container text-white text-lg font-extrabold py-5 px-12 rounded-2xl flex items-center justify-center gap-3 shadow-lg">
-                        Next: Lifestyle Profile <span class="material-symbols-outlined">arrow_forward</span>
+                    <button type="button" id="next-btn-step2" class="w-full md:w-auto bg-primary-container text-white text-lg font-extrabold py-5 px-16 rounded-2xl flex items-center justify-center gap-3 shadow-xl hover:translate-y-[-2px] active:scale-95 transition-all">
+                        Next Step <span class="material-symbols-outlined">arrow_forward</span>
                     </button>
                 </div>
             </form>
         </section>
 
         <footer class="mt-20 py-10 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-6 text-slate-400 text-xs">
-            <p>© 2026 OsteoScan AI. All rights reserved.</p>
+            <p>© 2026 OsteoScan AI. Precision Clinical Insights.</p>
             <div class="flex gap-8">
                 <a href="privacy.html" class="hover:text-primary transition-colors">Privacy Policy</a>
                 <a href="terms.html" class="hover:text-primary transition-colors">Terms of Service</a>
