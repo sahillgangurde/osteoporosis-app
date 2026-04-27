@@ -204,11 +204,98 @@ document.addEventListener('DOMContentLoaded', () => {
             `).join('');
         }
 
-        // --- REDIRECT TO PROFESSIONAL REPORT TEMPLATE ---
+        // --- DIRECT PDF DOWNLOAD USING PROFESSIONAL REPORT TEMPLATE ---
         document.getElementById('download-report-btn')?.addEventListener('click', () => {
-            // Open the professional clinical report template in a new tab
-            // The template handles data population and print-to-pdf automatically
-            window.open('report.html?autoprint=1', '_blank');
+            const btn = document.getElementById('download-report-btn');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = `<span class="animate-spin material-symbols-outlined" style="margin-right: 8px; animation: spin 1s linear infinite;">sync</span> Generating PDF...`;
+            btn.disabled = true;
+
+            // Fetch the professional report template
+            fetch('report.html')
+                .then(res => res.text())
+                .then(html => {
+                    // Parse the template
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+                    const reportContainer = doc.querySelector('.report-container');
+                    
+                    // Manually populate the template with local data
+                    const data = { ...getFormData(), ...getResult() };
+                    
+                    if(reportContainer.querySelector('#p-name')) reportContainer.querySelector('#p-name').innerText = data.Name || 'N/A';
+                    if(reportContainer.querySelector('#p-age')) reportContainer.querySelector('#p-age').innerText = data.Age || 'N/A';
+                    if(reportContainer.querySelector('#p-gender')) reportContainer.querySelector('#p-gender').innerText = data.Gender || 'N/A';
+                    if(reportContainer.querySelector('#report-date')) reportContainer.querySelector('#report-date').innerText = "Date: " + new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+                    
+                    const score = parseFloat(data.risk_score || 0).toFixed(2);
+                    if(reportContainer.querySelector('#risk-val')) reportContainer.querySelector('#risk-val').innerText = score + "%";
+                    
+                    const levelTag = reportContainer.querySelector('#risk-lvl-tag');
+                    if(levelTag) {
+                        if (score < 30) {
+                            levelTag.innerText = "Low Risk";
+                            levelTag.className = "risk-level-indicator level-low";
+                            levelTag.style.background = "#e6fffa"; levelTag.style.color = "#2c7a7b"; levelTag.style.padding = "6px 16px"; levelTag.style.borderRadius = "20px";
+                        } else if (score < 60) {
+                            levelTag.innerText = "Moderate Risk";
+                            levelTag.className = "risk-level-indicator level-medium";
+                            levelTag.style.background = "#fffaf0"; levelTag.style.color = "#975a16"; levelTag.style.padding = "6px 16px"; levelTag.style.borderRadius = "20px";
+                        } else {
+                            levelTag.innerText = "High Risk";
+                            levelTag.className = "risk-level-indicator level-high";
+                            levelTag.style.background = "#fff5f5"; levelTag.style.color = "#c53030"; levelTag.style.padding = "6px 16px"; levelTag.style.borderRadius = "20px";
+                        }
+                    }
+                    if(reportContainer.querySelector('#risk-analysis')) reportContainer.querySelector('#risk-analysis').innerText = data.explanation || "Clinical assessment complete.";
+                    
+                    const inputDataContainer = reportContainer.querySelector('#input-data-container');
+                    if(inputDataContainer) {
+                        inputDataContainer.innerHTML = '';
+                        const fields = ['Body Weight', 'Physical Activity', 'Vitamin D Intake', 'Calcium Intake', 'Alcohol Consumption', 'Smoking', 'Race/Ethnicity', 'Hormonal Changes', 'Family History', 'Medical Conditions', 'Prior Fractures', 'Medications'];
+                        fields.forEach(field => {
+                            inputDataContainer.innerHTML += `<div class="data-row" style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid #f0f0f0; font-size:13px;"><span class="data-label" style="font-weight:600; color:#4a4a4a;">${field}</span><span class="data-value" style="font-weight:700;">${data[field] || 'Unknown'}</span></div>`;
+                        });
+                    }
+
+                    // Extract styles
+                    const style = doc.querySelector('style').cloneNode(true);
+                    
+                    // Create an off-screen wrapper for html2pdf to process
+                    const wrapper = document.createElement('div');
+                    wrapper.style.position = 'absolute';
+                    wrapper.style.left = '-9999px';
+                    wrapper.style.top = '0';
+                    wrapper.style.background = 'white';
+                    wrapper.appendChild(style);
+                    wrapper.appendChild(reportContainer);
+                    document.body.appendChild(wrapper);
+
+                    const opt = {
+                        margin:       0,
+                        filename:     `OsteoScan_Report_${data.Name || 'Patient'}.pdf`,
+                        image:        { type: 'jpeg', quality: 1.0 },
+                        html2canvas:  { scale: 2, useCORS: true, logging: false },
+                        jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+                    };
+
+                    html2pdf().set(opt).from(reportContainer).save().then(() => {
+                        document.body.removeChild(wrapper);
+                        btn.innerHTML = originalText;
+                        btn.disabled = false;
+                    }).catch(err => {
+                        console.error("PDF Generation Error", err);
+                        document.body.removeChild(wrapper);
+                        btn.innerHTML = originalText;
+                        btn.disabled = false;
+                        alert("Could not generate PDF. Please try again.");
+                    });
+                }).catch(err => {
+                    console.error("Template Fetch Error", err);
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                    alert("Could not fetch report template.");
+                });
         });
     }
 });
