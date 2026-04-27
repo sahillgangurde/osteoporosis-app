@@ -100,7 +100,6 @@ document.addEventListener('DOMContentLoaded', () => {
             window.location.href = "lifestyle_diet.html";
         });
 
-        // Condition Toggle Logic
         document.querySelectorAll('.condition-toggle-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 const container = document.getElementById('medical-conditions-container');
@@ -189,28 +188,31 @@ document.addEventListener('DOMContentLoaded', () => {
             factorsContainer.classList.remove('hidden');
             factorsList.innerHTML = result.top_factors.map(f => `
                 <div class="px-4 py-2 bg-white/20 rounded-xl text-xs font-bold border border-white/30 backdrop-blur-sm">
-                    ${f.feature}: +${(f.impact * 100).toFixed(1)}%
+                    ${f.factor}: +${(f.impact * 100).toFixed(1)}%
                 </div>
             `).join('');
         }
 
-        document.getElementById('download-report-btn')?.addEventListener('click', async () => {
-            const formData = getFormData();
-            try {
-                const response = await fetch('/api/download-report', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ ...formData, ...result })
-                });
-                const blob = await response.blob();
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = `OsteoScan_Report_${formData.Name || 'Patient'}.pdf`;
-                a.click();
-            } catch (err) {
-                alert("Failed to generate report.");
-            }
+        // --- NEW: Client-side PDF Generation (WYSIWYG) ---
+        document.getElementById('download-report-btn')?.addEventListener('click', () => {
+            const element = document.querySelector('main'); 
+            const patientName = getFormData().Name || 'Patient';
+            
+            // Hide buttons during PDF generation
+            const actionArea = document.querySelector('.action-area');
+            if (actionArea) actionArea.style.display = 'none';
+
+            const opt = {
+                margin:       [0.5, 0.5],
+                filename:     `OsteoScan_Report_${patientName}.pdf`,
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true, logging: false },
+                jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+            };
+
+            html2pdf().set(opt).from(element).save().then(() => {
+                if (actionArea) actionArea.style.display = 'flex';
+            });
         });
     }
 });

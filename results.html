@@ -7,6 +7,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script>
+        document.getElementById('download-report-btn')?.addEventListener('click', () => {
+            const element = document.querySelector('main'); // Target the main report area
+            const opt = {
+                margin:       0.5,
+                filename:     `OsteoScan_Report_${JSON.parse(localStorage.getItem("osteo_formData")).Name || 'Patient'}.pdf`,
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2 },
+                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+            html2pdf().set(opt).from(element).save();
+        });
         tailwind.config = {
             darkMode: "class",
             theme: {
@@ -146,6 +157,7 @@
         </div>
     </footer>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="app.js?v=2"></script>
 </body>
 </html>
