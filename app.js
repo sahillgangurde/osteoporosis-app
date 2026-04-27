@@ -38,9 +38,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('step1-form')) {
         document.querySelectorAll('.gender-btn').forEach(btn => {
             btn.addEventListener('click', () => {
-                document.querySelectorAll('.gender-btn').forEach(b => b.className = "gender-btn flex items-center justify-center space-x-3 py-4 md:py-6 px-4 rounded-2xl border-2 border-outline-variant bg-surface-container-low text-on-surface-variant transition-all");
-                btn.className = "gender-btn flex items-center justify-center space-x-3 py-4 md:py-6 px-4 rounded-2xl border-2 border-primary-container bg-primary-container/5 text-primary shadow-md transition-all";
-                btn.classList.add('selected');
+                document.querySelectorAll('.gender-btn').forEach(b => {
+                    b.classList.remove('selected', 'border-primary-container', 'bg-primary-container/5', 'text-primary', 'shadow-md');
+                    b.classList.add('border-slate-100', 'bg-slate-50');
+                });
+                btn.classList.add('selected', 'border-primary-container', 'bg-primary-container/5', 'text-primary', 'shadow-md');
+                btn.classList.remove('border-slate-100', 'bg-slate-50');
             });
         });
 
@@ -70,8 +73,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const setupButtonGroup = (className) => {
             document.querySelectorAll('.' + className).forEach(btn => {
                 btn.addEventListener('click', () => {
-                    document.querySelectorAll('.' + className).forEach(b => b.className = `${className} py-4 md:py-5 rounded-2xl border-2 border-outline-variant bg-surface-container-low font-bold`);
-                    btn.className = `${className} py-4 md:py-5 rounded-2xl border-2 border-primary bg-primary/5 text-primary font-bold selected`;
+                    document.querySelectorAll('.' + className).forEach(b => {
+                        b.classList.remove('selected', 'border-primary', 'bg-primary/5', 'text-primary');
+                        b.classList.add('border-slate-100', 'bg-slate-50');
+                    });
+                    btn.classList.add('selected', 'border-primary', 'bg-primary/5', 'text-primary');
+                    btn.classList.remove('border-slate-100', 'bg-slate-50');
                 });
             });
         };
@@ -114,8 +121,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const setupButtonGroup = (className) => {
             document.querySelectorAll('.' + className).forEach(btn => {
                 btn.addEventListener('click', () => {
-                    document.querySelectorAll('.' + className).forEach(b => b.className = `${className} py-4 rounded-xl border-2 border-outline-variant text-sm font-bold`);
-                    btn.className = `${className} py-4 rounded-xl border-2 border-primary bg-primary/5 text-primary text-sm font-bold selected`;
+                    document.querySelectorAll('.' + className).forEach(b => {
+                        b.classList.remove('selected', 'border-primary-container', 'bg-primary-container/5', 'text-primary');
+                        b.classList.add('border-slate-100', 'bg-slate-50');
+                    });
+                    btn.classList.add('selected', 'border-primary-container', 'bg-primary-container/5', 'text-primary');
+                    btn.classList.remove('border-slate-100', 'bg-slate-50');
                 });
             });
         };
