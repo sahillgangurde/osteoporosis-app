@@ -17,7 +17,7 @@ preprocessor = None
 explainer = None
 
 def load_models():
-    global model, preprocessor, best_model_type
+    global model, preprocessor, best_model_type, explainer
     try:
         if os.path.exists('best_model.txt'):
             with open('best_model.txt', 'r') as f:
@@ -42,18 +42,15 @@ def load_models():
             
         print("Models/Pipeline loaded successfully.")
         
-        # Initialize SHAP explainer for XGBoost (if it's the best model)
-        if best_model_type == "XGBoost":
-            # For XGBoost, TreeExplainer is efficient
-            # If model is a pipeline, we might need the internal classifier
-            if hasattr(model, 'named_steps'):
-                explainer = shap.TreeExplainer(model.named_steps['clf'])
-            else:
-                explainer = shap.TreeExplainer(model)
-        elif best_model_type == "SVM":
-            # SVM needs KernelExplainer (slower, using a sample as background)
-            # We'll skip complex SHAP for SVM for now or use a simple version
-            explainer = None
+        # Initialize SHAP explainer for XGBoost
+        if best_model_type == "XGBoost" and model:
+            try:
+                if hasattr(model, 'named_steps'):
+                    explainer = shap.TreeExplainer(model.named_steps['clf'])
+                else:
+                    explainer = shap.TreeExplainer(model)
+            except:
+                explainer = None
     except Exception as e:
         print(f"Error loading model: {e}")
         try:
@@ -108,26 +105,23 @@ def predict():
         return jsonify({'error': 'No JSON payload provided'}), 400
 
     feature_dict = {}
-    # Columns the model was trained with 'Unknown' as a valid category
     UNKNOWN_SAFE_COLS = {'Alcohol Consumption', 'Medical Conditions', 'Medications'}
     for feature in REQUIRED_FEATURES:
         val = data.get(feature, _default_value_for(feature))
         if val in [None, "None", "not_provided", "", "Unknown"]:
             if feature in UNKNOWN_SAFE_COLS:
-                val = "Unknown"   # these columns have 'Unknown' as a trained category
+                val = "Unknown"
             else:
-                val = _default_value_for(feature)  # use safe clinical default
+                val = _default_value_for(feature)
         feature_dict[feature] = val
 
     df = pd.DataFrame([feature_dict])
 
-    # Add Age_Group — model was trained with this feature (improved_osteoporosis_ml.py)
     if 'Age' in df.columns:
         bins = [0, 30, 45, 60, 75, 120]
         labels = ["Young Adult", "Adult", "Middle-Aged", "Senior", "Elderly"]
         df["Age_Group"] = pd.cut(df["Age"], bins=bins, labels=labels, right=False).astype(str)
 
-    # Sanitize: ensure no Categorical dtype reaches the sklearn encoder
     for col in df.columns:
         if hasattr(df[col], 'cat') or df[col].dtype == object:
             df[col] = df[col].astype(str)
@@ -159,7 +153,6 @@ def get_shap_explanations(df):
         return []
         
     try:
-        # Get SHAP values for this specific input
         if hasattr(model, 'named_steps'):
             proc_df = model.named_steps['pre'].transform(df)
             shap_output = explainer.shap_values(proc_df)
@@ -168,44 +161,32 @@ def get_shap_explanations(df):
             shap_output = explainer.shap_values(df)
             feature_names = df.columns
             
-        # Binary classification handling: SHAP may return a list [class0, class1] or a single array
         if isinstance(shap_output, list):
-            # For binary classification, we want impact on class 1 (High Risk)
             values = shap_output[1][0] if len(shap_output) > 1 else shap_output[0][0]
         else:
             values = shap_output[0]
             
-        # Create list of (feature, value)
         contributions = []
         for i in range(len(feature_names)):
-            # Clean up feature name (remove 'cat__', 'num__', and handle 'Age_Group_...')
             raw_name = feature_names[i]
             clean_name = raw_name.split("__")[-1].replace("_", " ").title()
-            
-            # If it's a one-hot encoded feature like "Gender_Female", simplify it to "Gender"
             if " " in clean_name:
                 clean_name = clean_name.split(" ")[0]
-
-            if values[i] > 0: # Only factors increasing risk
+            if values[i] > 0:
                 contributions.append({'factor': clean_name, 'impact': float(values[i])})
                 
-        # Sort by impact and take top 3 unique factors
         unique_factors = {}
         for c in contributions:
-            # Group common medical markers
             name = c['factor']
             if "Fracture" in name: name = "Prior Fractures"
             if "Condition" in name: name = "Medical History"
             if "Medication" in name: name = "Medication Load"
-            
             if name not in unique_factors or c['impact'] > unique_factors[name]:
                 unique_factors[name] = c['impact']
         
         sorted_factors = sorted(unique_factors.items(), key=lambda x: x[1], reverse=True)
-        # Limit to top 3 for UI clarity
         return [{'factor': name, 'impact': val} for name, val in sorted_factors[:3]]
-    except Exception as e:
-        print(f"SHAP error: {e}")
+    except:
         return []
 
 @app.route('/api/download-report', methods=['POST'])
@@ -217,33 +198,88 @@ def download_report():
     # Create PDF
     pdf = FPDF()
     pdf.add_page()
-    pdf.set_font("Arial", 'B', 16)
-    pdf.cell(200, 10, txt="Osteoporosis Risk Clinical Report", ln=True, align='C')
-    pdf.ln(10)
     
-    pdf.set_font("Arial", size=12)
-    pdf.cell(200, 10, txt=f"Patient Name: {data.get('Name', 'N/A')}", ln=True)
-    pdf.cell(200, 10, txt=f"Age: {data.get('Age', 'N/A')}", ln=True)
-    pdf.cell(200, 10, txt=f"Gender: {data.get('Gender', 'N/A')}", ln=True)
-    pdf.ln(5)
+    # --- Header ---
+    pdf.set_fill_color(46, 2, 233) 
+    pdf.rect(0, 0, 210, 40, 'F')
     
+    pdf.set_text_color(255, 255, 255)
+    pdf.set_font("Arial", 'B', 24)
+    pdf.set_y(10)
+    pdf.cell(0, 15, "OsteoScan AI", ln=True, align='C')
+    pdf.set_font("Arial", 'I', 10)
+    pdf.cell(0, 5, "Precision Bone Health Analysis - Clinical Suite", ln=True, align='C')
+    
+    # --- Confidential Label ---
+    pdf.ln(20)
+    pdf.set_text_color(186, 26, 26)
+    pdf.set_font("Arial", 'B', 10)
+    pdf.cell(0, 10, "CONFIDENTIAL MEDICAL RECORD", ln=True, align='R')
+    
+    # --- Patient Information Box ---
+    pdf.set_text_color(25, 28, 32)
+    pdf.set_fill_color(242, 243, 249)
     pdf.set_font("Arial", 'B', 14)
-    pdf.cell(200, 10, txt=f"Risk Assessment Result: {data.get('risk_score', '0')}%", ln=True)
+    pdf.cell(0, 12, "  Patient Profile", ln=True, fill=True)
+    pdf.ln(2)
+    
+    pdf.set_font("Arial", '', 11)
+    name = data.get('Name', 'N/A')
+    age = data.get('Age', 'N/A')
+    gender = data.get('Gender', 'N/A')
+    ethnicity = data.get('Race/Ethnicity', 'N/A')
+    
+    pdf.cell(95, 10, f"  Name: {name}", border='B')
+    pdf.cell(95, 10, f"  Age: {age}", border='B', ln=True)
+    pdf.cell(95, 10, f"  Gender: {gender}", border='B')
+    pdf.cell(95, 10, f"  Origin: {ethnicity}", border='B', ln=True)
+    
+    # --- Risk Assessment Section ---
+    pdf.ln(10)
+    pdf.set_fill_color(255, 218, 214)
+    pdf.set_font("Arial", 'B', 14)
+    pdf.cell(0, 12, "  Risk Assessment Results", ln=True, fill=True)
     pdf.ln(5)
     
-    pdf.set_font("Arial", size=12)
-    pdf.multi_cell(0, 10, txt=f"Analysis: Based on the provided clinical data, your calculated risk of osteoporosis is {data.get('risk_score', '0')}%. This prediction was generated using an {data.get('model_used', 'AI')} model.")
+    risk_score = float(data.get('risk_score', 0))
+    risk_level = "HIGH RISK" if risk_score > 50 else "MODERATE/LOW RISK"
     
+    pdf.set_font("Arial", 'B', 20)
+    pdf.set_text_color(186, 26, 26)
+    pdf.cell(0, 15, f"Risk Score: {risk_score:.2f}%", ln=True, align='C')
+    pdf.set_font("Arial", 'B', 12)
+    pdf.cell(0, 5, f"Status: {risk_level}", ln=True, align='C')
+    
+    pdf.ln(10)
+    pdf.set_text_color(0, 0, 0)
+    pdf.set_font("Arial", '', 11)
+    explanation = data.get('explanation', 'Clinical markers analyzed using machine learning architecture.')
+    pdf.multi_cell(0, 7, txt=f"Analysis Summary: {explanation}", align='J')
+    
+    # --- Clinical Markers ---
     pdf.ln(10)
     pdf.set_font("Arial", 'B', 12)
-    pdf.cell(200, 10, txt="Input Data Summary:", ln=True)
-    pdf.set_font("Arial", size=10)
+    pdf.cell(0, 10, "Clinical Data Points Summary:", ln=True)
+    pdf.set_font("Arial", '', 10)
     
-    for key, value in data.items():
-        if key not in ['Name', 'Age', 'Gender', 'risk_score', 'model_used', 'high_risk', 'explanation']:
-            pdf.cell(200, 8, txt=f"{key}: {value}", ln=True)
-
-    # Save PDF to buffer
+    items = [(k, v) for k, v in data.items() if k not in ['Name', 'Age', 'Gender', 'risk_score', 'model_used', 'high_risk', 'explanation', 'Race/Ethnicity', 'top_factors']]
+    for i in range(0, len(items), 2):
+        k1, v1 = items[i]
+        line = f"  • {k1}: {v1}"
+        if i + 1 < len(items):
+            k2, v2 = items[i+1]
+            pdf.cell(95, 8, line)
+            pdf.cell(95, 8, f"  • {k2}: {v2}", ln=True)
+        else:
+            pdf.cell(0, 8, line, ln=True)
+            
+    # --- Footer ---
+    pdf.set_y(-40)
+    pdf.set_font("Arial", 'I', 8)
+    pdf.set_text_color(128, 128, 128)
+    pdf.cell(0, 5, "This report is generated by AI and intended for clinical screening purposes only.", ln=True, align='C')
+    pdf.cell(0, 5, "Generated via OsteoScan AI Clinical Suite. Verify with DEXA scan if score is > 50%.", ln=True, align='C')
+    
     pdf_buffer = io.BytesIO()
     pdf_output = pdf.output(dest='S')
     if isinstance(pdf_output, str):
@@ -255,7 +291,7 @@ def download_report():
     return send_file(
         pdf_buffer,
         as_attachment=True,
-        download_name='Osteoporosis_Report.pdf',
+        download_name=f'OsteoScan_Report_{name}.pdf',
         mimetype='application/pdf'
     )
 
