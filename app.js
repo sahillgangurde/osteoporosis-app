@@ -193,26 +193,11 @@ document.addEventListener('DOMContentLoaded', () => {
             `).join('');
         }
 
-        // --- NEW: Client-side PDF Generation (WYSIWYG) ---
+        // --- REDIRECT TO PROFESSIONAL REPORT TEMPLATE ---
         document.getElementById('download-report-btn')?.addEventListener('click', () => {
-            const element = document.querySelector('main'); 
-            const patientName = getFormData().Name || 'Patient';
-            
-            // Hide buttons during PDF generation
-            const actionArea = document.querySelector('.action-area');
-            if (actionArea) actionArea.style.display = 'none';
-
-            const opt = {
-                margin:       [0.5, 0.5],
-                filename:     `OsteoScan_Report_${patientName}.pdf`,
-                image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2, useCORS: true, logging: false },
-                jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
-            };
-
-            html2pdf().set(opt).from(element).save().then(() => {
-                if (actionArea) actionArea.style.display = 'flex';
-            });
+            // Open the professional clinical report template in a new tab
+            // The template handles data population and print-to-pdf automatically
+            window.open('report.html?autoprint=1', '_blank');
         });
     }
 });
