@@ -1,8 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-    <button id="menu-btn" class="md:hidden fixed top-5 left-5 z-50 bg-white p-2 rounded-xl shadow-lg text-primary">
-    <span class="material-symbols-outlined">menu</span>
-</button>
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -33,6 +30,7 @@
     <title>High Risk Result - OsteoScan AI</title>
 </head>
 <body class="bg-surface text-on-surface min-h-screen flex flex-col overflow-x-hidden">
+    <!-- Navigation -->
     <nav class="fixed top-0 w-full z-50 bg-[#f8f9ff]/80 backdrop-blur-md shadow-sm">
         <div class="flex justify-between items-center px-6 py-4 max-w-7xl mx-auto">
             <div class="flex items-center gap-3">
@@ -43,27 +41,30 @@
                 <a class="text-slate-600 font-medium hover:text-error transition-colors" href="dashboard.html">Dashboard</a>
                 <a class="text-slate-600 font-medium hover:text-error transition-colors" href="tips.html">Resources</a>
             </div>
+            <button onclick="window.location.href='ui.html'" class="bg-error text-white px-6 py-2 rounded-lg font-bold shadow-lg">New Assessment</button>
         </div>
     </nav>
 
+    <!-- Main Content -->
     <main class="flex-grow pt-32 pb-24 px-6 max-w-7xl mx-auto w-full">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <!-- Risk Alert Section -->
             <section class="lg:col-span-8 flex flex-col gap-8">
-                <div class="bg-error-container rounded-3xl p-8 md:p-4 md:p-16 shadow-lg relative overflow-hidden">
+                <div class="bg-error-container rounded-3xl p-8 md:p-12 shadow-lg relative overflow-hidden">
                     <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center gap-8">
                         <div class="bg-white rounded-full p-4 flex items-center justify-center shadow-sm">
-                            <span class="material-symbols-outlined text-error text-2xl md:text-6xl" style="font-variation-settings: 'FILL' 1;">warning</span>
+                            <span class="material-symbols-outlined text-error text-4xl md:text-6xl" style="font-variation-settings: 'FILL' 1;">warning</span>
                         </div>
                         <div>
-                            <h1 class="text-on-error-container text-3xl md:text-2xl md:text-6xl font-extrabold tracking-tight mb-2">Attention Required</h1>
-                            <p class="text-on-error-container/80 text-lg font-medium max-w-xl">Our analysis indicates a higher probability of osteoporosis risk based on your provided clinical markers.</p>
+                            <h1 class="text-on-error-container text-3xl md:text-5xl font-extrabold tracking-tight mb-2">Attention Required</h1>
+                            <p class="text-on-error-container/80 text-lg font-medium max-w-xl">Our analysis indicates a higher probability of osteoporosis risk based on your clinical markers.</p>
                         </div>
                     </div>
                     
                     <div class="mt-12">
                         <div class="flex justify-between items-end mb-2">
                             <span class="text-on-error-container font-bold">Risk Assessment Score</span>
-                            <span id="risk-percentage" class="risk-score-display text-xl md:text-5xl font-headline font-black text-error">--%</span>
+                            <span id="risk-percentage" class="risk-score-display text-4xl md:text-6xl font-headline font-black text-error">--%</span>
                         </div>
                         <div class="bg-white/30 rounded-full h-6 w-full p-1">
                             <div id="risk-bar" class="bg-error h-full rounded-full transition-all duration-1000" style="width: 0%;"></div>
@@ -80,65 +81,70 @@
                     </div>
                 </div>
 
+                <!-- Recommendations -->
                 <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100">
                     <h2 class="text-2xl font-bold mb-6">Immediate Recommendations</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-1 sm:grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div class="flex gap-4">
-                            <div class="w-10 h-10 rounded-xl bg-error/10 flex items-center justify-center shrink-0">
+                            <div class="w-12 h-12 rounded-xl bg-error/10 flex items-center justify-center shrink-0">
                                 <span class="material-symbols-outlined text-error">medical_services</span>
                             </div>
                             <div>
                                 <h3 class="font-bold">Consult a Specialist</h3>
-                                <p class="text-sm text-slate-600">Schedule a DEXA scan and consult with an endocrinologist or rheumatologist.</p>
+                                <p class="text-sm text-slate-600 leading-relaxed">Schedule a DEXA scan and consult with an endocrinologist or rheumatologist.</p>
                             </div>
                         </div>
                         <div class="flex gap-4">
-                            <div class="w-10 h-10 rounded-xl bg-error/10 flex items-center justify-center shrink-0">
+                            <div class="w-12 h-12 rounded-xl bg-error/10 flex items-center justify-center shrink-0">
                                 <span class="material-symbols-outlined text-error">nutrition</span>
                             </div>
                             <div>
                                 <h3 class="font-bold">Dietary Adjustment</h3>
-                                <p class="text-sm text-slate-600">Increase Calcium and Vitamin D intake through diet and supplementation as advised by your doctor.</p>
+                                <p class="text-sm text-slate-600 leading-relaxed">Increase Calcium and Vitamin D intake through diet and supplementation.</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <aside
-<button id="close-sidebar" class="md:hidden absolute top-4 right-4 text-slate-500">
-    <span class="material-symbols-outlined">close</span>
-</button>
- class="lg:col-span-4">
-                <div class="bg-slate-50 p-8 rounded-3xl sticky top-32">
+            <!-- Sidebar Actions -->
+            <aside class="lg:col-span-4">
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 sticky top-32">
                     <h2 class="text-xl font-bold mb-6">Next Steps</h2>
-                    <div class="space-y-4">
-                        <button id="download-report-btn" class="w-full bg-error text-white font-bold py-4 rounded-xl shadow-md hover:bg-red-700 transition-colors flex items-center justify-center gap-2">
-                            <span class="material-symbols-outlined">download</span> Download PDF Report
+                    <div class="flex flex-col gap-4">
+                        <button id="download-report-btn" class="w-full bg-[#8B0000] hover:bg-[#A52A2A] text-white font-bold py-4 rounded-2xl shadow-lg transition-all hover:scale-[1.02] flex items-center justify-center gap-3">
+                            <span class="material-symbols-outlined">description</span>
+                            Download Clinical Report
                         </button>
-                        <button onclick="window.location.href='report.html'" class="w-full bg-white text-slate-700 font-bold py-4 rounded-xl border border-slate-200 hover:bg-slate-50 transition-colors flex items-center justify-center gap-2">
-                            <span class="material-symbols-outlined">print</span> Printable Version
+                        <button onclick="window.location.href='report.html'" class="w-full bg-white text-slate-700 font-bold py-4 rounded-2xl border border-slate-200 hover:bg-slate-50 transition-all flex items-center justify-center gap-3">
+                            <span class="material-symbols-outlined">print</span>
+                            Print Assessment
                         </button>
-                        <button onclick="window.location.href='dashboard.html'" class="w-full text-slate-500 font-medium py-2 hover:text-error transition-colors">
+                        <hr class="my-2 border-slate-100">
+                        <button onclick="window.location.href='dashboard.html'" class="text-slate-500 font-medium hover:text-error transition-colors text-center">
                             Return to Dashboard
                         </button>
+                    </div>
+                    <div class="mt-8 p-4 bg-slate-50 rounded-2xl border border-dashed border-slate-200">
+                        <p class="text-[11px] text-slate-400 leading-relaxed text-center">
+                            This assessment is powered by AI. Always verify with a clinical professional.
+                        </p>
                     </div>
                 </div>
             </aside>
         </div>
     </main>
 
-    
-<footer class="bg-[#f2f3f9] py-12 mt-auto">
-<div class="flex flex-col md:flex-row justify-between items-center px-8 gap-6 max-w-7xl mx-auto text-slate-500 text-sm">
-<p>© 2026 OsteoScan AI. Precision Clinical Editorial.</p>
-<div class="flex gap-8">
-    <a href="privacy.html" class="hover:text-[#4A3AFF] transition-colors">Privacy Policy</a>
-    <a href="terms.html" class="hover:text-[#4A3AFF] transition-colors">Terms of Service</a>
-</div>
-</div>
-</footer>
-
+    <!-- Footer -->
+    <footer class="bg-[#f2f3f9] py-12 mt-auto">
+        <div class="flex flex-col md:flex-row justify-between items-center px-8 gap-6 max-w-7xl mx-auto text-slate-500 text-sm">
+            <p>© 2026 OsteoScan AI. Precision Clinical Editorial.</p>
+            <div class="flex gap-8">
+                <a href="privacy.html" class="hover:text-error transition-colors">Privacy Policy</a>
+                <a href="terms.html" class="hover:text-error transition-colors">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
 
     <script src="app.js"></script>
 </body>
