@@ -47,7 +47,7 @@
                 <a class="text-slate-600 font-medium hover:text-[#4A3AFF]" href="about.html">How it Works</a>
                 <a class="text-slate-600 font-medium hover:text-[#4A3AFF]" href="clinical_data.html">Clinical Data</a>
             </nav>
-            <button onclick="window.location.href='ui.html'" class="bg-primary-container text-white px-8 py-3 rounded-full font-headline font-bold text-sm shadow-lg active:scale-95 transition-all">
+            <button onclick="localStorage.clear(); window.location.href='ui.html'" class="bg-primary-container text-white px-8 py-3 rounded-full font-headline font-bold text-sm shadow-lg active:scale-95 transition-all">
                 Get Started
             </button>
         </div>
@@ -68,7 +68,7 @@
                         Free AI-powered osteoporosis risk assessment — no doctor visit needed. Get institutional-grade insights from the comfort of your home.
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4">
-                        <button onclick="window.location.href='ui.html'" class="bg-primary-container text-white px-10 py-5 rounded-2xl font-headline font-bold text-lg shadow-xl hover:translate-y-[-2px] transition-all flex items-center justify-center gap-3">
+                        <button onclick="localStorage.clear(); window.location.href='ui.html'" class="bg-primary-container text-white px-10 py-5 rounded-2xl font-headline font-bold text-lg shadow-xl hover:translate-y-[-2px] transition-all flex items-center justify-center gap-3">
                             Start Free Check
                             <span class="material-symbols-outlined">arrow_forward</span>
                         </button>
@@ -133,5 +133,9 @@
     </footer>
 
     <script src="app.js"></script>
+    <script>
+        // Force clear on every visit to dashboard to be absolutely sure
+        localStorage.clear();
+    </script>
 </body>
 </html>
