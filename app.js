@@ -57,10 +57,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 showWarning("Please enter Name, Age, Ethnicity and Select Gender.");
                 return;
             }
+            
+            const ageNum = parseInt(age);
+            if (ageNum < 18 || ageNum > 120) {
+                showWarning("Please enter a valid age between 18 and 120.");
+                return;
+            }
 
             setFormData({
                 'Name': name,
-                'Age': parseInt(age),
+                'Age': ageNum,
                 'Race/Ethnicity': ethnicity,
                 'Gender': genderBtn.dataset.value
             });
@@ -269,6 +275,37 @@ document.addEventListener('DOMContentLoaded', () => {
                         const fields = ['Body Weight', 'Physical Activity', 'Vitamin D Intake', 'Calcium Intake', 'Alcohol Consumption', 'Smoking', 'Race/Ethnicity', 'Hormonal Changes', 'Family History', 'Medical Conditions', 'Prior Fractures', 'Medications'];
                         fields.forEach(field => {
                             inputDataContainer.innerHTML += `<div class="data-row" style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid #f0f0f0; font-size:13px;"><span class="data-label" style="font-weight:600; color:#4a4a4a;">${field}</span><span class="data-value" style="font-weight:700;">${data[field] || 'Unknown'}</span></div>`;
+                        });
+                    }
+                    
+                    const recList = reportContainer.querySelector('#rec-list');
+                    if(recList) {
+                        recList.innerHTML = '';
+                        let recommendations = [];
+                        if (score > 60) {
+                            recommendations = [
+                                "Immediate consultation with a rheumatologist or endocrinologist.",
+                                "Diagnostic DEXA scan to confirm bone mineral density (BMD).",
+                                "Review medications for potential bone-depleting side effects.",
+                                "Initiate pharmaceutical intervention as per specialist guidance."
+                            ];
+                        } else if (score > 30) {
+                            recommendations = [
+                                "Increase daily intake of Calcium (1200mg) and Vitamin D (2000 IU).",
+                                "Engage in weight-bearing resistance training 3x per week.",
+                                "Monitor for any new skeletal pain or fracture history.",
+                                "Follow-up assessment in 6 months."
+                            ];
+                        } else {
+                            recommendations = [
+                                "Maintain current active lifestyle and healthy diet.",
+                                "Ensure adequate baseline nutrition for long-term health.",
+                                "Standard annual check-up recommended.",
+                                "Good bone stability index maintained."
+                            ];
+                        }
+                        recommendations.forEach(rec => {
+                            recList.innerHTML += `<li class="rec-item" style="display:flex; gap:10px; margin-bottom:8px; font-size:13px; padding:8px 10px; background:#fcfcfc; border-radius:8px;"><span class="rec-bullet" style="color:#2e02e9; font-weight:bold;">•</span><span>${rec}</span></li>`;
                         });
                     }
 

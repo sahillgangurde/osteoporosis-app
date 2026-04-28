@@ -115,7 +115,7 @@ def predict():
     if 'Age' in df.columns:
         bins = [0, 30, 45, 60, 75, 120]
         labels = ["Young Adult", "Adult", "Middle-Aged", "Senior", "Elderly"]
-        df["Age_Group"] = pd.cut(df["Age"], bins=bins, labels=labels, right=False).astype(str)
+        df["Age_Group"] = pd.cut(df["Age"].astype(int), bins=bins, labels=labels, right=False).astype(str)
     for col in df.columns:
         if hasattr(df[col], 'cat') or df[col].dtype == object:
             df[col] = df[col].astype(str)

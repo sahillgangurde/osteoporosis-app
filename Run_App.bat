@@ -1,5 +1,4 @@
 @echo off
-cd /d "%~dp0"
 title OsteoScan AI Server Launcher
 echo ==========================================
 echo    OSTEOSCAN AI - SERVER IS STARTING
@@ -12,3 +11,5 @@ echo Press CTRL+C to stop the server.
 echo.
 python app.py
 pause
+
+

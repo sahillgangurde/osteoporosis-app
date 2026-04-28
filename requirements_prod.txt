@@ -8,3 +8,5 @@ waitress
 flask-limiter
 flask-talisman
 python-dotenv
+scikit-learn
+xgboost
